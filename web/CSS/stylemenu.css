@@ -1,0 +1,165 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12/04/2023, 07:48:07 PM
+    Author     : Alexander
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    min-height: 100vh;
+    background: #f6f6f9;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #3A3B3C;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+/* ------ Menu ---------- */
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background-color: #f6f6f9;
+    transition: all 0.5s ease;
+}
+nav.close{
+    width: 73px;
+}
+nav .logo-name{
+    display: flex;
+    align-items: center;
+}
+nav .logo-image{
+    display: flex;
+    justify-content: center;
+    min-width: 45px;
+}
+nav .logo-image img{
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+nav .logo-name .logo_name{
+    font-size: 16px;
+    font-weight: 600;
+    color: #DE5C5C;
+    margin-left: 14px;
+    transition: all 0.5s ease;
+}
+nav.close .logo_name{
+    opacity: 0;
+    pointer-events: none;
+}
+nav .menu-items{
+    margin-top: 40px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.menu-items li{
+    list-style: none;
+
+}
+.menu-items li a{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
+    
+}
+.menu-items a:hover{
+    background-color: rgba(132, 139, 200, 0.18);
+    
+}
+.nav-links li a:hover:before{
+    content: "";
+    width: 6px;
+    height: 100%;
+    background: #DE5C5C;
+}
+.menu-items li a i{
+    font-size: 19px;
+    min-width: 45px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7d8da1;
+}
+.menu-items li a .link-name{
+    font-size: 12px;
+    font-weight: 400;
+    color: #7d8da1;    
+    transition: all 0.5s ease;
+}
+nav.close li a .link-name{
+    opacity: 0;
+    pointer-events: none;
+}
+.nav-links li a:hover i,
+.nav-links li a:hover .link-name{
+    color: #DE5C5C;
+}
+.menu-items .logout-mode{
+    padding-top: 10px;
+    border-top: 1px solid #e6e5e5;
+}
+.menu-items .mode{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+/*---- Barra Superior ---- */
+.dashboard .top{
+    position: fixed;
+    top: 0;
+    left: 250px;
+    display: flex;
+    width: calc(100% - 250px);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    /* background-color: #f6f6f9; */
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+.top img{
+    width: 40px;
+    border-radius: 50%;
+}
+.text-header {
+    justify-content: flex-end;
+}
+nav.close ~ .dashboard .top{
+    left: 73px;
+    width: calc(100% - 73px);
+}
+.dashboard .top .sidebar-toggle{
+    font-size: 26px;
+    color: #000;
+    cursor: pointer;
+}
+
+

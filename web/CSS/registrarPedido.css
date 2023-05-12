@@ -1,0 +1,21 @@
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.boxuno {
+  height: 150px;
+  background: #fff;
+  border-radius: 20px;
+}
+
+.boxdos {
+  height: 620px;
+  background: #fff;
+  border-radius: 20px;
+}

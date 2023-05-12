@@ -1,0 +1,347 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26/03/2023, 09:28:21 AM
+    Author     : Luisa
+*/
+
+/*body {margin:0;
+      font-family: 'Bebas Neue', cursive;}
+
+/*.navbar {
+  overflow: hidden;
+  background-color: #333; 
+}
+
+.navbar a {
+  float: left;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+
+/*.subnav .subnavbtn {
+  font-size: 20px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: #F49919;
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: #F49919;
+  width: 100%;
+  z-index: 1;
+}
+
+.subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
+}
+*/
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 5px;
+  font-size: 22px;
+}
+
+input[type=text], input[type=text] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 5px;
+  font-size: 22px;
+}
+
+select{
+  width: 100%;
+  padding: 15px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  font-family: 'Bebas Neue', cursive;  
+  margin-right: 70px;
+   border-radius: 5px;
+}
+
+input[type=text], input[type=email] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: 'Bebas Neue', cursive;
+}
+
+input[type=text], input[type=number] {
+  width: 69%;
+  padding: 6px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 5px;
+   font-size: 22px;
+font-family: 'Bebas Neue', cursive;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: 'Bebas Neue', cursive;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: yellow;
+  color: black;
+  padding: 5px 20px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  opacity: 0.9;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 22px;
+}
+
+.volver{
+  background-color: #F49919;
+  color: white;
+  padding: 5px 50px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+  width: 30%;
+  opacity: 0.9;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 22px;
+}
+
+.registerbtn{
+  background-color: #838383;
+  color: white;
+  padding: 5px 20px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+  width: 60%;
+  opacity: 0.9;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 22px;
+}
+
+.buscarbtn{
+  background-color: #F49919;
+  color: white;
+ width: 200px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.buttonsprov{
+  text-align: center;
+}
+
+
+button:hover {
+  opacity:1;
+}
+/* Extra styles for the cancel button */
+.volverbtn {
+  padding: 5px 20px;
+  background-color: #F49919;
+  width: 70%;  
+  color: white
+}
+
+.volvermenu {
+  background-color: red;
+  color: white;
+  padding: 5px 20px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+  width: 60%;
+  opacity: 0.9;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 22px;
+}
+
+.consulprov{
+    width: 30%;
+     text-align: center;
+}
+.container{
+  background-color: lightgrey;
+  width: 300px;
+  border-radius: 10px;
+  padding: 100px;
+  margin: 50px;
+}
+.container2{
+ position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translate(-50%, -12%);
+  background-color: lightgrey;
+  padding: 60px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.container3{
+ position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translate(-50%, -12%);
+  background-color: lightgrey;
+  padding: 60px;
+  border-radius: 10px;
+  font-size: 16px;
+
+}
+
+.bodmenu{
+    background-image: url(../IMAGEN/fondomenu.svg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%; 
+}
+.regprov{
+    background-image: url(../IMAGEN/1500x844-cliente-primero-atencion.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.regprodu{
+    background-image: url(../IMAGEN/quienes_somos.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.consprov{
+    background-image: url(../ASSETS/fondosimple.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+#customers {
+  font-family: 'Bebas Neue', cursive;
+  border-collapse: collapse;
+  font-size: 20px;
+  margin: 50px;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #a8a5a5;
+  color: black;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.bienvenido{
+    color: white;
+}
+
+.container4{
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -12%);
+    background-color: lightgrey;
+    padding: 60px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 560px;
+}
+.filtro{
+    display: none;
+}

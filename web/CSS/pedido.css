@@ -1,0 +1,215 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9/05/2023, 06:24:09 PM
+    Author     : Alexander
+*/
+:root {
+    --color-primary: #DE5C5C;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-backgroud: #f6f6f9;
+    --color-dark: #363949;
+    --color-info-dark: #7d8da1;
+    --color-dark-variant: #677486;
+    --color-warning: #ffbb55;
+    --color-light: rgba(163, 165, 185, 0.18);
+
+    --card--padding: 1.8rem;
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.columna1 {
+    display: flex;
+    flex-direction: column;
+    width: 68%;
+}
+
+.columna2 {
+    width: 30%;
+}
+h2 {
+    margin-top: 1rem;
+    font-size: 1.1rem;  
+}
+
+/* Estilos de la caja 1 */
+.caja1 {
+    padding: 1rem;
+    background: white;
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+    font-size: 12px; /* Cambiar el valor según sea necesario */
+}
+.caja1:hover {
+   box-shadow: none;
+}
+
+.datos-usu, .datos-prov {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+    
+}
+
+.box-container {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    flex: 1;
+    text-align: left;
+    /* Alinear todo a la izquierda */
+    padding-right: 10px;
+    /* Agregar espacio entre las etiquetas y los campos de entrada */
+}
+.box-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="date"],
+input[type="text"],
+select {
+    width: 100%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+}
+.select2-results__option {
+  background-color: #f1f1f1;
+  font-size: 12px;
+}
+
+.select2-container .select2-selection {
+    width: 100%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    padding: 6px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.select2-container--default .select2-selection--single {
+    height: 41px;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #DE5C5C;
+    color: white;
+}
+
+/* Estilos de la tabla */
+
+.tabla1 {
+    margin-top: 1rem;
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 0.8rem;
+    padding: 10px;
+}
+.tabla1:hover {
+   box-shadow: none;
+}
+.tabla1 tr {
+    line-height: 0.8;
+}
+.tabla1 td, .tabla1 th {
+    border: none;
+    padding: 1rem;
+    font-size: 0.8rem;
+    
+}
+.tabla1 tbody td{
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+}
+.tabla1 tbody tr:last-child td {
+    border: none;
+}
+.tabla1 tr:hover {
+    background-color: #f2f2f2;
+}
+
+.eliminar {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+.generar-pedido {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.6rem;
+    width: 20%;
+    border-radius: 10px;
+    margin-left: 78%;
+}
+
+/* Estilos de la caja 2 */
+.caja2 {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: #fff;
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+}
+
+.productos h2 {
+    margin-top: 0;
+}
+
+.datosproductos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+.datosproductos input, select{
+    margin-bottom: 0.5rem;
+}
+
+.agregar {
+    margin-top: 1rem;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.foto-prod {
+    max-height: 145px;
+    margin-top: 1rem;
+    max-width: 100%;
+}
+
