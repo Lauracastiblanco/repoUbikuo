@@ -35,7 +35,7 @@ function actualizarTablaProductos() { //boton de agregar al pedido
         var columnaSubtotal = document.createElement("td");
         var columnaSubtotalSpan = document.createElement("span");
         columnaSubtotal.classList.add("subtotal");
-        columnaSubtotal.textContent = producto.dpro_cantidad * producto.precio; // Multiplicar precio y cantidad
+        columnaSubtotal.textContent = producto.dpro_cantidad * producto.prodprecio; // Multiplicar precio y cantidad
         fila.appendChild(columnaSubtotal);
 
         var columnaEliminar = document.createElement("td");
@@ -59,16 +59,16 @@ function actualizarTablaProductos() { //boton de agregar al pedido
 
     }
     // Seleccionar todos los campos de subtotal y sumarlos
-    var subtotales = document.getElementsByClassName("subtotal");
-    var total = 0;
-    for (var i = 0; i < subtotales.length; i++) {
-        var subtotal = parseFloat(subtotales[i].innerHTML);
-        total += subtotal;
+    //var subtotales = document.getElementsByClassName("subtotal");
+   // var total = 0;
+    //for (var i = 0; i < subtotales.length; i++) {
+      //  var subtotal = parseFloat(subtotales[i].innerHTML);
+       /* total += subtotal;
     }
 
     // Actualizar el valor del campo de texto Total
     var totalField = document.getElementById("total");
-    totalField.textContent = total.toFixed(2);
+    totalField.textContent = total.toFixed(2);*/
 }
 
 
@@ -82,46 +82,33 @@ function eliminarProducto(index) {
 // Event listener para el botón de "Añadir"
 function agregarProducto() {
     // Obtener los valores de los campos de entrada
-    var proId = document.getElementsByName("proId_fk")[0].value;
-    var proNombre = document.getElementsByName("proId_fk")[0].options[document.getElementsByName("proId_fk")[0].selectedIndex].text;
-    var detoSabor = document.getElementsByName("detoSabor")[0].value;
-    var detoRelleno = document.getElementsByName("detoRelleno")[0].value;
-    var detoPorciones = document.getElementsByName("detoPorciones")[0].value;
-    var detoCantidad = document.getElementsByName("detoCantidad")[0].value;
-    var detoPrecio = document.getElementsByName("detoPrecio")[0].value;
+    //var id_prod = document.getElementsByName("id_prod")[0].options[document.getElementsByName("id_prod")[0].selectedIndex].text;
+    var id_prod = document.getElementsByName("id_prod")[0].value;
+    var prodprecio = document.getElementsByName("prodprecio")[0].value;
+    var prodnombre = document.getElementsByName("id_prod")[0].options[document.getElementsByName("id_prod")[0].selectedIndex].text.split(' - ')[0];
+    var dpro_cantidad = document.getElementsByName("dpro_cantidad")[0].value;
+
 
     // Validar que los campos no estén vacíos
-    if (proId === "" || detoCantidad === "" || detoPrecio === "") {
+    if (id_prod === "" || prodprecio === "" || dpro_cantidad === "") {
         alert("Por favor, complete todos los campos antes de agregar un nuevo producto.");
         return;
     }
     // Agregar un nuevo objeto de producto al array de productos
     productos.push({
-        proId: proId,
-        proNombre: proNombre,
-        sabor: detoSabor,
-        relleno: detoRelleno,
-        porciones: detoPorciones,
-        cantidad: detoCantidad,
-        precio: detoPrecio
+        id_prod: id_prod,
+        prodprecio: prodprecio,
+        prodnombre: prodnombre,
+        dpro_cantidad: dpro_cantidad,
+       
+
     });
 // Limpiar los campos de entrada
-    document.querySelector('select[name="proId_fk"]').value = "";
-    document.querySelector('select[name="proId_fk"]').dispatchEvent(new Event('change'));
-    document.querySelector('select[name="proId_fk"]').selectedIndex = 0;
-    document.querySelector('select[name="detoSabor"]').value = "";
-    document.querySelector('select[name="detoSabor"]').dispatchEvent(new Event('change'));
-    document.querySelector('select[name="detoRelleno"]').value = "";
-    document.querySelector('select[name="detoRelleno"]').dispatchEvent(new Event('change'));
-    document.querySelector('input[name="detoPorciones"]').value = "";
-    document.querySelector('input[name="detoCantidad"]').value = "";
-    document.querySelector('input[name="detoPrecio"]').value = "";
+    document.querySelector('select[name="id_prod"]').value = "";
+    document.querySelector('select[name="id_prod"]').dispatchEvent(new Event('change'));
+    document.querySelector('input[name="dpro_cantidad"]').value = "";
     // Actualizar la tabla de productos
     actualizarTablaProductos();
 
 }
 ;
-
-
-
-

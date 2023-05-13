@@ -96,10 +96,9 @@
                             </div>
                         </div>
                         <h2>Lista de Productos</h2>
-                        <table class="tabla1">
+                        <table class="tabla1" id="tablaProductos">
                             <thead>
                                 <tr>
-                                    <th>Item</th>
                                     <th>Id Producto</th>
                                     <th>Nombre</th>
                                     <th>Cantidad</th>
@@ -108,7 +107,7 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablaProductosBody">
 
                             </tbody>
                         </table>
@@ -120,7 +119,7 @@
                             <div class="productos">
                                 <div class="datosproductos">
                                     <label>Producto</label>
-                                    <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect">
+                                    <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect" name="id_prod">
                                         <option value="">Seleccione...</option>
                                         <%
                                             productosDAO prodDAO = new productosDAO();
@@ -132,7 +131,7 @@
                                         %>
                                         <optgroup label="Categoria: <%=catVO.getCatnombre()%>">
                                             <% for (productosVO prodVO : listaProductos) {%>
-                                            <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProd_descripcion()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> REF: <%=prodVO.getId_prod()%></option>
+                                            <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProd_descripcion()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> - REF: <%=prodVO.getId_prod()%></option>
                                             <% } %>
                                         </optgroup>
                                         <% }
@@ -141,14 +140,14 @@
                                     <label>Descripción</label>
                                     <input type="text" placeholder="Descripcion" id="prod_descripcion">
                                     <label>Precio</label>
-                                    <input type="text" placeholder="Precio" id="prodprecio">
+                                    <input type="text" placeholder="Precio" id="prodprecio" name="prodprecio">
                                     <label>Stock</label>
-                                    <input type="text" placeholder="Precio" id="prodstock_disp">
+                                    <input type="text" placeholder="Stock" id="prodstock_disp" name="prodstock_disp">
                                     <label>Cantidad</label>
-                                    <input type="text" placeholder="Cantidad">
+                                    <input type="text" placeholder="Cantidad" name="dpro_cantidad">
                                     <label>Foto</label>
                                     <img class="foto-prod" src="ASSETS/Breaker.png" alt=""/>
-                                    <button class="btn agregar" id="agregar-btn">Agregar al pedido</button>
+                                    <button class="btn agregar" id="agregar-btn" onclick="agregarProducto()">Agregar al pedido</button>
                                 </div>
                             </div>
                         </div>
