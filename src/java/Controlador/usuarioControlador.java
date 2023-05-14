@@ -39,44 +39,43 @@ public class usuarioControlador extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-        String id_usuario = request.getParameter("id_usuario");
-        String usunombre = request.getParameter("usunombre");
-        String usuapellido = request.getParameter("usuapellido");
-        String usudireccion = request.getParameter("usudireccion");
-        String usutelefono = request.getParameter("usutelefono");
-        String usuemail = request.getParameter("usuemail");
-        String usupassword = request.getParameter("usupassword");
-        String usuestado = request.getParameter("usuestado");
-        String usu_id_rol = request.getParameter("usu_id_rol");     
-        int opcion = Integer.parseInt(request.getParameter("opcion"));
-        //2. quien tiene los datos seguros
-        usuarioVO usuVO = new usuarioVO(id_usuario, usunombre,  usuapellido , usudireccion, usutelefono, usuemail, usupassword , usuestado , usu_id_rol);
-        rolesVO rolVO = new rolesVO();
+
+            String id_usuario = request.getParameter("id_usuario");
+            String usunombre = request.getParameter("usunombre");
+            String usuapellido = request.getParameter("usuapellido");
+            String usudireccion = request.getParameter("usudireccion");
+            String usutelefono = request.getParameter("usutelefono");
+            String usuemail = request.getParameter("usuemail");
+            String usupassword = request.getParameter("usupassword");
+            String usuestado = request.getParameter("usuestado");
+            String usu_id_rol = request.getParameter("usu_id_rol");
+            int opcion = Integer.parseInt(request.getParameter("opcion"));
+            //2. quien tiene los datos seguros
+            usuarioVO usuVO = new usuarioVO(id_usuario, usunombre, usuapellido, usudireccion, usutelefono, usuemail, usupassword, usuestado, usu_id_rol);
+            rolesVO rolVO = new rolesVO();
 //3. quien hace las operaciones
-        usuarioDAO usuDAO = new usuarioDAO(usuVO);
-        rolesDAO rolDAO = new rolesDAO(rolVO);
-        switch (opcion){
-            case 1: 
-                if (usuDAO.agregarRegistro()) { //agregar registro
-                    request.setAttribute("mensajeExito","El usuario se registro correctamente");
-                } else {
-                    request.setAttribute("mensajeError","El usuario no se registro correctamente");
-                }
-                request.getRequestDispatcher("Usuarios.jsp").forward(request,response);
-            break;
-            
-            case 2:
-            if (usuDAO.actualizarRegistro()) { //agregar registro
-                    request.setAttribute("mensajeExito","El usuario se actualizo correctamente");
-                } else {
-                    request.setAttribute("mensajeError","El usuario no se actualizo correctamente");
-                }
-                request.getRequestDispatcher("Usuarios.jsp").forward(request,response);
-            break;
-            
-            
-            case 3:
+            usuarioDAO usuDAO = new usuarioDAO(usuVO);
+            rolesDAO rolDAO = new rolesDAO(rolVO);
+            switch (opcion) {
+                case 1:
+                    if (usuDAO.agregarRegistro()) { //agregar registro
+                        request.setAttribute("mensajeExito", "El usuario se registro correctamente");
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario no se registro correctamente");
+                    }
+                    request.getRequestDispatcher("Usuarios.jsp").forward(request, response);
+                    break;
+
+                case 2:
+                    if (usuDAO.actualizarRegistro()) { //agregar registro
+                        request.setAttribute("mensajeExito", "El usuario se actualizo correctamente");
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario no se actualizo correctamente");
+                    }
+                    request.getRequestDispatcher("Usuarios.jsp").forward(request, response);
+                    break;
+
+                case 3:
                     if (usuDAO.iniciarSesion(id_usuario, usupassword)) {
                         HttpSession miSesion = request.getSession(true);
                         usuVO = usuDAO.consultarPorId(id_usuario);
@@ -107,30 +106,38 @@ public class usuarioControlador extends HttpServlet {
                         request.getRequestDispatcher("index.jsp").forward(request, response);
                     }
                     break;
-            case 4:
-                usuVO = usuDAO.consultarPorId(id_usuario);
-                if (usuVO != null) {
-                    request.setAttribute("¡Usuario encontrado!", usuVO);
-                    request.getRequestDispatcher("consultarUsuario2.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("mensajeError", "El usuario NO existe");
-                    request.getRequestDispatcher("consultarUsuario.jsp").forward(request, response);
-                }
-                break;
-                
+                case 4:
+                    usuVO = usuDAO.consultarPorId(id_usuario);
+                    if (usuVO != null) {
+                        request.setAttribute("¡Usuario encontrado!", usuVO);
+                        request.getRequestDispatcher("consultarUsuario2.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario NO existe");
+                        request.getRequestDispatcher("consultarUsuario.jsp").forward(request, response);
+                    }
+                    break;
+
                 case 5:
-                usuVO = usuDAO.consultarPorId(id_usuario);
-                if (usuVO != null) {
-                    request.setAttribute("¡Usuario encontrado!", usuVO);
-                    request.getRequestDispatcher("actualizarUsuario2.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("mensajeError", "El usuario NO existe");
-                    request.getRequestDispatcher("consultarUsuario.jsp").forward(request, response);
-                }
-                break;               
-                    
-     }
-    }
+                    usuVO = usuDAO.consultarPorId(id_usuario);
+                    if (usuVO != null) {
+                        request.setAttribute("¡Usuario encontrado!", usuVO);
+                        request.getRequestDispatcher("actualizarUsuario2.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario NO existe");
+                        request.getRequestDispatcher("consultarUsuario.jsp").forward(request, response);
+                    }
+                    break;
+                case 6:
+                    if (usuDAO.actualizarContraseña(id_usuario,usupassword )) { //agregar registro
+                        request.setAttribute("mensajeExito", "La contraseña se actualizo correctamente.");
+                    } else {
+                        request.setAttribute("mensajeError", "La contraseña no se actualizo correctamente");
+                    }
+                    request.getRequestDispatcher("nuevaContraseña.jsp").forward(request, response);
+                    break;
+
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

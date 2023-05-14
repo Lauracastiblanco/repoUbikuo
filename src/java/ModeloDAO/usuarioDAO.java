@@ -116,39 +116,41 @@ public class usuarioDAO extends ConexionBd implements Crud {
     public boolean eliminarRegisro() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public boolean iniciarSesion (String usuario, String clave){
+
+    public boolean iniciarSesion(String usuario, String clave) {
         try {
             conexion = this.obtenerConexion(); //metodo que no es propio del dato
             sql = "select * from tblusuarios where id_usuario=? and usupassword =?";
             puente = conexion.prepareStatement(sql);
-            puente.setString(1,id_usuario);
+            puente.setString(1, id_usuario);
             puente.setString(2, usupassword);
             mensajero = puente.executeQuery();
-            if(mensajero.next()) { //busca busca y encuentra o no
+            if (mensajero.next()) { //busca busca y encuentra o no
                 operacion = true; //si encuentra la operacion sera true
             }
         } catch (Exception e) {
             Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally{
+        } finally {
             //independimiente que no haga 
             try {
 //                this.cerrarConexion();
             } catch (Exception e) {
-                Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE,null,e);
+                Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return operacion;
     }
+
     public usuarioVO consultarPorId(String id_usuario) {
         usuarioVO usuVO = null;
         try {
             conexion = this.obtenerConexion();
-            sql = "Select * from tblusuarios where id_usuario = ?";   
+            sql = "Select * from tblusuarios where id_usuario = ?";
             puente = conexion.prepareStatement(sql);
             puente.setString(1, id_usuario);
             mensajero = puente.executeQuery();
             while (mensajero.next()) {
-                usuVO = new usuarioVO(id_usuario, mensajero.getString(2), mensajero.getString(3),mensajero.getString(4), 
+                usuVO = new usuarioVO(id_usuario, mensajero.getString(2), mensajero.getString(3), mensajero.getString(4),
                         mensajero.getString(5), mensajero.getString(6), mensajero.getString(7), mensajero.getString(8), mensajero.getString(9));
                 //private String usuId, usuNombre, usuEmail, usuPassword, usuEstado, usuRol, usuApellido, usuDireccion,usuTelefono;
             }
@@ -156,7 +158,7 @@ public class usuarioDAO extends ConexionBd implements Crud {
             Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             try {
-                this.cerrarConexion();  
+                this.cerrarConexion();
             } catch (Exception e) {
                 Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -164,23 +166,23 @@ public class usuarioDAO extends ConexionBd implements Crud {
         }
         return usuVO;
     }
-    
-    public ArrayList<usuarioVO>listar(){
-        
-        ArrayList<usuarioVO>listaUsuarios = new ArrayList<>();
+
+    public ArrayList<usuarioVO> listar() {
+
+        ArrayList<usuarioVO> listaUsuarios = new ArrayList<>();
         try {
             conexion = this.obtenerConexion(); //metodo que no es propio del dato
             sql = "select * from tblusuarios;";
             puente = conexion.prepareStatement(sql);
             mensajero = puente.executeQuery();
             while (mensajero.next()) {
-                usuarioVO usuVO = new usuarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4), 
+                usuarioVO usuVO = new usuarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4),
                         mensajero.getString(5), mensajero.getString(6), mensajero.getString(7), mensajero.getString(8), mensajero.getString(9));
                 listaUsuarios.add(usuVO);
-            } 
+            }
         } catch (Exception e) {
             Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally{
+        } finally {
             try {
                 this.cerrarConexion();
             } catch (Exception e) {
@@ -189,4 +191,25 @@ public class usuarioDAO extends ConexionBd implements Crud {
         }
         return listaUsuarios;
     }
+
+    public boolean actualizarContraseña(String documento, String nuevaContraseña) {
+        try {
+            sql = "UPDATE tblusuarios SET usuPassword = ? WHERE id_usuario = ?";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, usupassword);
+            puente.setString(2, id_usuario);
+            puente.executeUpdate();
+            operacion = true;
+        } catch (Exception e) {
+            Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                this.cerrarConexion();
+            } catch (Exception e) {
+                Logger.getLogger(usuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return operacion;
+    }
+
 }

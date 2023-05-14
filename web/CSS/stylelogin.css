@@ -159,14 +159,13 @@ form{
 a{
     display: block;
     text-align: right;
-    text-decoration: none;
-    color: #999;
+    color: #DE5C5C;
     font-size: 0.9rem;
     transition: .3s;
 }
 
 a:hover{
-    color: #38d39f;
+    color: black;
 }
 
 .btn{
