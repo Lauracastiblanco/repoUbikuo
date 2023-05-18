@@ -86,7 +86,7 @@
                                             </div>
                                         </div>
                                         <div class="controls">
-                                            <button class="cancelarbtn">Cancelar</button>
+                                            <a href="#" class="cancelarbtn">Cancelar</a>
                                             <button class="registrarbtn">Registrar Usuario</button>
                                             <input  type="hidden" name="opcion" value="1">
                                         </div>
@@ -97,12 +97,19 @@
                         <div class="box box2">
                             <i class='bx bxs-user-check activos' ></i>
                             <span class="number">10</span>
-                            <span class="text">Usuarios activos</span>
+                            <span class="text">Activos</span>
                         </div>
                         <div class="box box3">
                             <i class='bx bxs-user total'></i>
                             <span class="number">20</span>
-                            <span class="text">Total usuarios</span>
+                            <span class="text">Total</span>
+                        </div>
+                        <div class="box box3">
+                            <i class='bx bxs-user total'></i>
+                            <form method="post" action="generadorReportes.jsp" target="_blank">
+                                <input type="submit" value="Generar PDF">
+                            </form>
+                            <span class="text">Generar Reporte</span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +120,7 @@
                             <div class="buscar">
                                 <input type="text" id="buscador" name="id_usuario"class="buscar__input" placeholder="Buscar">
                             </div>
-                            <select id="estado">
+                            <select class="selectico" id="estado">
                                 <option value="">Todos</option>
                                 <option value="activo">Activo</option>
                                 <option value="inactivo">Inactivo</option>
@@ -199,7 +206,6 @@
                                                                 <%
                                                                     rolesDAO rolDAO_act = new rolesDAO();
                                                                     for (rolesVO rolVO : rolDAO_act.listar()) {
-
                                                                 %>
                                                                 <option value="<%=rolVO.getId_Rol()%>"><%=rolVO.getRolnombre()%></option>
                                                                 <%}%>

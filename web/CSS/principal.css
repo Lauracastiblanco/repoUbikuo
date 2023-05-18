@@ -127,6 +127,15 @@ nav.close ~ .main{
   background-color: #fff;
   font-family: 'Poppins', sans-serif;
 }
+.selectico {
+    width: 14%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+}
 .dash-content .table-data .head {
     display: flex;
     align-items: center;

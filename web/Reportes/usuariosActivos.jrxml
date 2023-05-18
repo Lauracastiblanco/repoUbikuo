@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuarioActivos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4ab53f1-b929-4ab3-88d2-f40c8458adc6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.extension.simple.font.families" value="Calibri;fonts/calibri.ttf,Franklin Gothic Demi Cond;fonts/franklin_gothic_demi_cond.ttf"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT 
+        `ubikuo_final`.`tblusuarios`.`id_usuario` AS `id_usuario`,
+        CONCAT(`ubikuo_final`.`tblusuarios`.`usunombre`,
+                ' ',
+                `ubikuo_final`.`tblusuarios`.`usuapellido`) AS `usunombre`,
+        `ubikuo_final`.`tblusuarios`.`usudireccion` AS `usudireccion`,
+        `ubikuo_final`.`tblusuarios`.`usutelefono` AS `usutelefono`,
+        `ubikuo_final`.`tblusuarios`.`usuemail` AS `usuemail`,
+        `ubikuo_final`.`tblusuarios`.`usuestado` AS `usuestado`,
+        `ubikuo_final`.`tblroles`.`rolnombre` AS `rolnombre`
+    FROM
+        (`ubikuo_final`.`tblusuarios`
+        JOIN `ubikuo_final`.`tblroles` ON (`ubikuo_final`.`tblusuarios`.`usu_id_rol` = `ubikuo_final`.`tblroles`.`id_Rol`))
+    WHERE
+        `ubikuo_final`.`tblusuarios`.`usuestado` = 'activo']]>
+	</queryString>
+	<field name="id_usuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usunombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usudireccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usutelefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuemail" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuestado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rolnombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="431" y="66" width="122" height="29" forecolor="#000000" backcolor="#666666" uuid="4705d57d-faf4-45fa-9011-350f41fff06c"/>
+			</frame>
+			<image>
+				<reportElement x="2" y="0" width="603" height="132" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["logo_web.png"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="433" y="63" width="122" height="29" forecolor="#000000" backcolor="#CCCCCC" uuid="5892f47e-bdb6-4e61-9b8c-84358a6629f6"/>
+			</frame>
+			<staticText>
+				<reportElement style="SubTitle" x="454" y="66" width="99" height="29" forecolor="#000000" uuid="13bc559f-ca02-4690-8267-5f815fb1472e"/>
+				<textElement>
+					<font fontName="Franklin Gothic Demi Cond" size="22" isBold="false" isItalic="true" pdfEncoding="Cp1252"/>
+				</textElement>
+				<text><![CDATA[ACTIVOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="357" y="17" width="198" height="46" forecolor="#000000" uuid="735d59c0-687d-41e3-8bce-9cdfab30201f"/>
+				<textElement>
+					<font fontName="Verdana" size="36" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Usuarios ]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="113" width="555" height="19" forecolor="#000000" backcolor="#DE5C5C" uuid="8bf16389-81d4-4044-972c-0ba1a14facc0"/>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="433" y="112" width="122" height="20" forecolor="#FFFFFF" uuid="8518c1ed-09a2-4787-8ebb-002c9bb37c04"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<ellipse>
+				<reportElement x="496" y="-34" width="32" height="34" forecolor="#666666" backcolor="#666666" uuid="664b196b-d937-4fb7-b183-6d307655b7c3"/>
+			</ellipse>
+			<ellipse>
+				<reportElement x="499" y="-34" width="32" height="34" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="9c031249-fe84-4428-8b4f-cc30bfb98659"/>
+			</ellipse>
+			<ellipse>
+				<reportElement x="553" y="17" width="32" height="34" forecolor="#666666" backcolor="#666666" uuid="e2e828ff-eb05-49ec-8c2c-9339bfdce264"/>
+			</ellipse>
+			<ellipse>
+				<reportElement x="555" y="17" width="32" height="34" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="b4190b92-29dd-4d1e-a6f4-20c7dd8b1f97"/>
+			</ellipse>
+			<ellipse>
+				<reportElement x="522" y="-49" width="83" height="79" forecolor="#CC0000" backcolor="#CC0000" uuid="76c04aff-53b0-45ac-a655-9fddc64b1e84"/>
+			</ellipse>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="128" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="98" width="555" height="26" forecolor="#666666" backcolor="#666666" uuid="77f66b46-dcc9-4762-a7b7-5d43a9df0341"/>
+			</rectangle>
+			<image>
+				<reportElement x="18" y="33" width="77" height="17" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["phone.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="18" y="50" width="77" height="17" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["email.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="2" y="78" width="553" height="1" uuid="14eabdf5-f0a7-4b5b-9ed4-644d2bd9676a"/>
+				<graphicElement>
+					<pen lineWidth="2.5" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="309" y="33" width="77" height="17" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["map.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="309" y="50" width="77" height="17" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["addres.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="46" y="33" width="100" height="17" uuid="81c38ac5-6095-4c9f-bede-3667fc4604c6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[3206257680]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="50" width="182" height="17" uuid="42628f46-07b6-49da-bad5-ff9b089a3134"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[electricosestrada@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="16" width="182" height="17" uuid="552b99e9-bc31-40dd-b420-808208e374ce"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="16" width="182" height="17" uuid="fd599bc4-6d9f-4688-85b2-92feedce08fe"/>
+				<textElement>
+					<font size="12" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Ubicación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="33" width="100" height="17" uuid="9cfcee40-8bb9-4051-9a6a-48fff97ae7d0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Santa Fé, Bogotá.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="50" width="180" height="17" uuid="7c00cb04-6721-4322-bfbc-4a8d4b73ead2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cra. 12 # 15 - 84 oficina 206]]></text>
+			</staticText>
+			<line>
+				<reportElement x="269" y="16" width="1" height="51" uuid="18d246a7-3200-49ea-b81d-58cb062c259f"/>
+			</line>
+			<staticText>
+				<reportElement x="295" y="102" width="62" height="20" forecolor="#FFFFFF" uuid="0068be08-c7e5-486a-ae15-3ce58593250f"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="102" width="47" height="20" forecolor="#FFFFFF" uuid="035e94f9-c0b0-40d2-ab4a-3bb69ff32ea6"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="102" width="47" height="22" forecolor="#FFFFFF" uuid="8963714e-1bae-480d-95e1-b96d74242e94"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="102" width="72" height="20" forecolor="#FFFFFF" uuid="40ffeba8-eb73-4a9e-a57b-129512ddcd78"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="102" width="70" height="20" forecolor="#FFFFFF" uuid="9278da72-9e0f-4fca-9467-ec40eaecfd0f"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="102" width="42" height="20" forecolor="#FFFFFF" uuid="fa327155-14cd-49d4-8a79-4e1f690976dd"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Rol]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="25" forecolor="#FFFFFF" backcolor="#F5F4F4" uuid="e8c25ac0-627a-410f-92e9-6d2476f0505d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="18" y="5" width="77" height="20" uuid="71002439-38c5-4bbb-bfc2-007ccd110ded"/>
+				<textFieldExpression><![CDATA[$F{id_usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="5" width="100" height="20" uuid="98fd372c-991e-424f-be5e-55dba55e2063"/>
+				<textFieldExpression><![CDATA[$F{usunombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="5" width="100" height="20" uuid="e22d34af-fdd1-4c99-a9ab-9c205bba2de4"/>
+				<textFieldExpression><![CDATA[$F{usudireccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="5" width="79" height="20" uuid="70bcb3a6-4c37-4d9e-80a3-80da9d168717"/>
+				<textFieldExpression><![CDATA[$F{usutelefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="5" width="106" height="20" uuid="b8764d9a-0e91-47db-9e35-ae63ad6c722e"/>
+				<textFieldExpression><![CDATA[$F{usuemail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="5" width="73" height="20" uuid="8be8d5a0-cad2-475c-965b-0e79f24ff256"/>
+				<textFieldExpression><![CDATA[$F{rolnombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50"/>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="50">
+			<rectangle radius="5">
+				<reportElement x="2" y="0" width="553" height="50" forecolor="#666666" backcolor="#666666" uuid="ee5829dd-ef93-4e56-b04b-005b074ab28d"/>
+			</rectangle>
+			<rectangle radius="7">
+				<reportElement x="18" y="10" width="493" height="30" forecolor="#ECECEC" backcolor="#E3E3E3" uuid="9eecdeb7-caf1-4d71-a697-e86d6c71f92b"/>
+			</rectangle>
+			<ellipse>
+				<reportElement x="522" y="12" width="25" height="25" uuid="da77a68b-fe8f-4179-a42d-52b08404be45"/>
+			</ellipse>
+			<textField>
+				<reportElement x="531" y="15" width="15" height="20" forecolor="#333333" uuid="67ec9bda-29b2-4e8e-8e73-e84a541af657"/>
+				<textElement>
+					<font fontName="Calibri" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="278" y="15" width="223" height="20" uuid="629512ea-0873-4cac-b4b5-eb8500b93783"/>
+				<textElement>
+					<font fontName="Calibri" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Electricos Inductruales Estrada E I E S.A.S]]></text>
+			</staticText>
+			<image>
+				<reportElement x="30" y="13" width="104" height="24" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["Imagen1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="253" y="15" width="104" height="24" uuid="7ea74587-ae04-4e74-bd0e-8e7799f62c70"/>
+				<imageExpression><![CDATA["logo_web - copia.png"]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+</jasperReport>
