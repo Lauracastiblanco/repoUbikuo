@@ -37,8 +37,8 @@ nav{
     left: 0;
     height: 100%;
     width: 250px;
-    padding: 10px 14px;
-    background-color: #f6f6f9;
+    padding: 10px 20px;
+    background-color: #d6d4d4;
     transition: all 0.5s ease;
 }
 nav.close{
@@ -54,7 +54,7 @@ nav .logo-image{
     min-width: 45px;
 }
 nav .logo-image img{
-    width: 40px;
+    width: 60px;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -62,8 +62,8 @@ nav .logo-image img{
 nav .logo-name .logo_name{
     font-size: 16px;
     font-weight: 600;
-    color: #DE5C5C;
-    margin-left: 14px;
+    color: #e8051b;
+    margin-left: 16px;
     transition: all 0.5s ease;
 }
 nav.close .logo_name{
@@ -90,7 +90,7 @@ nav .menu-items{
     
 }
 .menu-items a:hover{
-    background-color: rgba(132, 139, 200, 0.18);
+    background-color: #ccc7c7;
     
 }
 .nav-links li a:hover:before{
@@ -106,12 +106,12 @@ nav .menu-items{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #7d8da1;
+    color: #e8051b;
 }
 .menu-items li a .link-name{
     font-size: 12px;
     font-weight: 400;
-    color: #7d8da1;    
+    color: #000;    
     transition: all 0.5s ease;
 }
 nav.close li a .link-name{
@@ -134,16 +134,16 @@ nav.close li a .link-name{
 /*---- Barra Superior ---- */
 .dashboard .top{
     position: fixed;
-    top: 0;
-    left: 250px;
-    display: flex;
-    width: calc(100% - 250px);
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 14px;
-    /* background-color: #f6f6f9; */
-    transition: all 0.3s ease;
-    z-index: 10;
+  top: 0;
+  left: 250px;
+  display: flex;
+  width: calc(100% - 250px);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: #d6d4d4;
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 .top img{
     width: 40px;

@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuarios</title>
+        <title>Proveedor</title>
         <link href="CSS/stylepopup.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/principal.css" rel="stylesheet" type="text/css"/>
         <!--------------------- Iconos ------------------------------->
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                         <div class="controls">
-                                            <button class="cancelarbtn">Cancelar</button>
+                                            <a href="#" class="cancelarbtn">Cancelar</a>
                                             <button class="registrarbtn">Registrar Poveedor</button>
                                             <input  type="hidden" name="opcion" value="1">
                                         </div>
@@ -81,12 +81,16 @@
                                 </div>
                             </div>
                         </div>
-                        <a style="text-decoration:none" href="PedidoProveedor.jsp">
+                        <a style="text-decoration:none" href="consultarPedProveedor.jsp">
                             <div class="box box2">
                                 <i class='bx bx-package pedido'></i>
                                 <span class="text">Pedidos</span>
                             </div>
                         </a>
+                        <div class="box box3">
+                            <i class='bx bxs-report activos'></i>
+                            <span class="text">Reportes</span>
+                        </div>
                         <div class="box box2">
                             <i class='bx bxs-user-check activos' ></i>
                             <span class="number">10</span>
@@ -106,7 +110,7 @@
                             <div class="buscar">
                                 <input type="text" id="buscador" name="id_prov"class="buscar__input" placeholder="Buscar">
                             </div>
-                            <select id="estado">
+                            <select class="selectico" id="estado">
                                 <option value="">Todos</option>
                                 <option value="activo">Activo</option>
                                 <option value="inactivo">Inactivo</option>
@@ -183,13 +187,16 @@
                                                             <span class="details">Contraseña* </span>
                                                             <input type="text"  name="usupassword" placeholder="Contraseña" id="usupassword">
                                                         </div>
-                                                        <select name="usuestado" id="usuestado">
-                                                            <option value="activo">Activo</option>
-                                                            <option value="inactivo">Inactivo</option>
-                                                        </select>
+                                                        <div class="input-box">
+                                                             <span class="details">Estado* </span>
+                                                            <select name="usuestado" id="usuestado">
+                                                                <option value="activo">Activo</option>
+                                                                <option value="inactivo">Inactivo</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="controls">
-                                                        <button class="cancelarbtn">Cancelar</button>
+                                                        <a href="#" class="cancelarbtn">Cancelar</a>
                                                         <button class="registrarbtn">Actualizar Usuario</button>
                                                         <input  type="hidden" name="opcion" value="2">
                                                     </div>   

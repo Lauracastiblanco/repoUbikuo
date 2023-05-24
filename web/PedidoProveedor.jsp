@@ -4,6 +4,7 @@
     Author     : APRENDIZ
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="ModeloVO.productosVO"%>
 <%@page import="ModeloDAO.productosDAO"%>
@@ -58,10 +59,10 @@
                                 </div>
                                 <div class="box-container">
                                     <label>Usuario</label>
-                                    <select name="" id="">
+                                    <select name="id_usuario" id="id_usuario">
                                         <option value="">Selccione...</option>
-                                        <option value="activo">Laura Castiblanco</option>
-                                        <option value="inactivo">Luisa Toquica</option>
+                                        <option value="1">Laura Castiblanco</option>
+                                        <option value="1074414468">Luisa Toquica</option>
                                     </select>
                                 </div>
                             </div>
@@ -69,29 +70,32 @@
                             <div class="datos-prov">
                                 <div class="box-container">
                                     <label>NIT</label>
-                                    <select name="id_prov" class="select2" id="miSelect" onchange="inputsProveedor()">
-                                        <option>Selecione...</option>
+                                    <select name="id_prov" onchange="inputsProveedor()" id="id_prov">
+                                        <option>Seleccione...</option>
                                         <% ProveedorDAO provDAO = new ProveedorDAO();
-                                            for (ProveedorVO rolVO : provDAO.listar()) {%>
-                                        <option value="<%=rolVO.getId_prov()%>" data-nombre="<%=rolVO.getPronombre()%>"data-representante="<%=rolVO.getProrepresentante()%>" data-direccion="<%=rolVO.getProdireccion()%>" data-correo="<%=rolVO.getProcorreo()%>"><%=rolVO.getPronombre()%> NIT <%=rolVO.getId_prov()%></option>
+                                            for (ProveedorVO rolVO : provDAO.listar()) {
+                                                String id_prov = String.valueOf(rolVO.getId_prov());
+                                        %>
+                                        <option value="<%= id_prov%>" data-nombre="<%= rolVO.getPronombre()%>" data-representante="<%= rolVO.getProrepresentante()%>" data-direccion="<%= rolVO.getProdireccion()%>" data-correo="<%= rolVO.getProcorreo()%>"><%= rolVO.getPronombre()%> NIT <%= rolVO.getId_prov()%></option>
                                         <% }%>
                                     </select>
+
                                 </div>
                                 <div class="box-container">
                                     <label>Nombre</label>
-                                    <input type="text" placeholder="Nombre" id="pronombre">
+                                    <input type="text" placeholder="Nombre" id="pronombre" value="<%= request.getAttribute("pronombre")%>">
                                 </div>  
                                 <div class="box-container">
                                     <label>Representante</label>
-                                    <input type="text" placeholder="Representante" id="prorepresentante">
+                                    <input type="text" placeholder="Representante" id="prorepresentante" value="<%= request.getAttribute("prorepresentante")%>">
                                 </div>
                                 <div class="box-container">
                                     <label>Direccion</label>
-                                    <input type="text" placeholder="Direccion" id="prodireccion">
+                                    <input type="text" placeholder="Direccion" id="prodireccion" value="<%= request.getAttribute("prodireccion")%>">
                                 </div>
                                 <div class="box-container">
                                     <label>Correo Electronico</label>
-                                    <input type="text" placeholder="Correo Electronico" id="procorreo">
+                                    <input type="text" placeholder="Correo Electronico" id="procorreo" value="<%= request.getAttribute("procorreo")%>">
                                 </div>
                             </div>
                         </div>
@@ -107,8 +111,16 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="tablaProductosBody">
-
+                            <tbody>
+                            <c:forEach var="list" items="${listaProductos}">
+                                <tr>
+                                    <td>${listaProductos.getDpro_id_producto()}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                         <button class="generar-pedido">Generar Pedido</button>
@@ -116,40 +128,43 @@
                     <div class="columna2">
                         <h3 class="titulo-prod">Productos</h3>
                         <div class="caja2">
-                            <div class="productos">
-                                <div class="datosproductos">
-                                    <label>Producto</label>
-                                    <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect" name="id_prod">
-                                        <option value="">Seleccione...</option>
-                                        <%
-                                            productosDAO prodDAO = new productosDAO();
-                                            CategoriaDAO catProdDAO = new CategoriaDAO();
-                                            List<CategoriaVO> listaCategorias = catProdDAO.listarC();
-                                            for (CategoriaVO catVO : listaCategorias) {
-                                                List<productosVO> listaProductos = prodDAO.listarCategoria(catVO.getId_cat());
-                                                if (!listaProductos.isEmpty()) {
-                                        %>
-                                        <optgroup label="Categoria: <%=catVO.getCatnombre()%>">
-                                            <% for (productosVO prodVO : listaProductos) {%>
-                                            <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProd_descripcion()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> - REF: <%=prodVO.getId_prod()%></option>
-                                            <% } %>
-                                        </optgroup>
-                                        <% }
-                                            }%>
-                                    </select>
-                                    <label>Descripción</label>
-                                    <input type="text" placeholder="Descripcion" id="prod_descripcion">
-                                    <label>Precio</label>
-                                    <input type="text" placeholder="Precio" id="prodprecio" name="prodprecio">
-                                    <label>Stock</label>
-                                    <input type="text" placeholder="Stock" id="prodstock_disp" name="prodstock_disp">
-                                    <label>Cantidad</label>
-                                    <input type="text" placeholder="Cantidad" name="dpro_cantidad">
-                                    <label>Foto</label>
-                                    <img class="foto-prod" src="ASSETS/Breaker.png" alt=""/>
-                                    <button class="btn agregar" id="agregar-btn" onclick="agregarProducto()">Agregar al pedido</button>
+                            <form method="post" action="DetallesPedidoProveedor">
+                                <div class="productos">
+                                    <div class="datosproductos">
+                                        <label>Producto</label>
+                                        <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect">
+                                            <option value="">Seleccione...</option>
+                                            <%
+                                                productosDAO prodDAO = new productosDAO();
+                                                CategoriaDAO catProdDAO = new CategoriaDAO();
+                                                List<CategoriaVO> listaCategorias = catProdDAO.listarC();
+                                                for (CategoriaVO catVO : listaCategorias) {
+                                                    List<productosVO> listaProductos = prodDAO.listarCategoria(catVO.getId_cat());
+                                                    if (!listaProductos.isEmpty()) {
+                                            %>
+                                            <optgroup label="Categoria: <%=catVO.getCatnombre()%>">
+                                                <% for (productosVO prodVO : listaProductos) {%>
+                                                <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProd_descripcion()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> - REF: <%=prodVO.getId_prod()%></option>
+                                                <% } %>
+                                            </optgroup>
+                                            <% }
+                            }%>
+                                        </select>
+                                        <label>Descripción</label>
+                                        <input type="text" placeholder="Descripcion" id="prod_descripcion" name="prod_descripcion" >
+                                        <label>Precio</label>
+                                        <input type="text" placeholder="Precio" id="prodprecio" name="prodprecio">
+                                        <label>Stock</label>
+                                        <input type="text" placeholder="Stock" id="prodstock_disp" name="prodstock_disp">
+                                        <label>Cantidad</label>
+                                        <input type="text" placeholder="Cantidad" name="dpro_cantidad">
+                                        <label>Foto</label>
+                                        <img class="foto-prod" src="ASSETS/Breaker.png" alt=""/>
+                                        <button class="btn agregar" id="agregar-btn" onclick="guardarDatos()">Agregar al pedido</button>
+                                        <input  type="hidden" name="opcion" value="1">
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -159,5 +174,22 @@
         <script src="JS/pedidoproveedor.js" type="text/javascript"></script>
         <script src="JS/buscador.js" type="text/javascript"></script>
         <script src="JS/popup.js" type="text/javascript"></script>
+        <script>
+                  // Obtener los valores del almacenamiento local
+           var id_usuario = localStorage.getItem('id_usuario');
+           var pronombre = localStorage.getItem('pronombre');
+           var prorepresentante = localStorage.getItem('prorepresentante');
+           var procorreo = localStorage.getItem('procorreo');
+           var prodireccion = localStorage.getItem('prodireccion');
+           var id_prov = localStorage.getItem('id_prov');
+
+           // Establecer los valores en los campos del formulario
+           document.getElementById('id_usuario').value = id_usuario;
+           document.getElementById('pronombre').value = pronombre;
+           document.getElementById('prorepresentante').value = prorepresentante;
+           document.getElementById('procorreo').value = procorreo;
+           document.getElementById('prodireccion').value = prodireccion;
+           document.getElementById('id_prov').value = id_prov;
+        </script>
     </body>
 </html>

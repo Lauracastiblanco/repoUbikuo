@@ -3,74 +3,105 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//ARRAY ORDEN TABLA
 var productos = [];
 
-function actualizarTablaProductos() { //boton de agregar al pedido
-    var tablaBody = document.getElementById("tablaProductosBody"); //donde colo este id
-    tablaBody.innerHTML = "";
+function actualizarTablaProductos() {
+  var tablaBody = document.getElementById("tablaProductosBody");
+  tablaBody.innerHTML = "";
 
-    // Recorrer el array de productos y agregar filas a la tabla
-    for (var i = 0; i < productos.length; i++) {
-        var producto = productos[i];
+  // Recorrer el array de productos y agregar filas a la tabla
+  for (var i = 0; i < productos.length; i++) {
+    var producto = productos[i];
 
-        var fila = document.createElement("tr");
+    var fila = document.createElement("tr");
 
-        var idProducto = document.createElement("td");
-        idProducto.textContent = producto.id_prod;
-        fila.appendChild(idProducto);
+    var idProducto = document.createElement("td");
+    idProducto.textContent = producto.id_prod;
+    fila.appendChild(idProducto);
 
-        var nombreProducto = document.createElement("td");
-        nombreProducto.textContent = producto.prodnombre;
-        fila.appendChild(nombreProducto);
+    var nombreProducto = document.createElement("td");
+    nombreProducto.textContent = producto.prodnombre;
+    fila.appendChild(nombreProducto);
 
-        var cantidadProducto = document.createElement("td");
-        cantidadProducto.textContent = producto.dpro_cantidad;
-        fila.appendChild(cantidadProducto);
+    var cantidadProducto = document.createElement("td");
+    cantidadProducto.textContent = producto.dpro_cantidad;
+    fila.appendChild(cantidadProducto);
 
-        var precioProducto = document.createElement("td");
-        precioProducto.textContent = producto.prodprecio;
-        fila.appendChild(precioProducto);
+    var precioProducto = document.createElement("td");
+    precioProducto.textContent = producto.prodprecio;
+    fila.appendChild(precioProducto);
 
-        var columnaSubtotal = document.createElement("td");
-        var columnaSubtotalSpan = document.createElement("span");
-        columnaSubtotal.classList.add("subtotal");
-        columnaSubtotal.textContent = producto.dpro_cantidad * producto.prodprecio; // Multiplicar precio y cantidad
-        fila.appendChild(columnaSubtotal);
+    var columnaSubtotal = document.createElement("td");
+    var columnaSubtotalSpan = document.createElement("span");
+    columnaSubtotal.classList.add("subtotal");
+    columnaSubtotal.textContent = producto.dpro_cantidad * producto.prodprecio; // Multiplicar precio y cantidad
+    fila.appendChild(columnaSubtotal);
 
-        var columnaEliminar = document.createElement("td");
-        var botonEliminar = document.createElement("button");
-        botonEliminar.classList.add("agregar");
-        var iconoEliminar = document.createElement("i"); // creas el elemento <i>
+    var columnaEliminar = document.createElement("td");
+    var botonEliminar = document.createElement("button");
+    botonEliminar.classList.add("agregar");
+    var iconoEliminar = document.createElement("i");
 
-        iconoEliminar.className = "bx bxs-trash"; // agregas la clase del icono
-        botonEliminar.appendChild(iconoEliminar); // agregas el icono al botón
-        botonEliminar.setAttribute("data-id", i);
+    iconoEliminar.className = "bx bxs-trash";
+    botonEliminar.appendChild(iconoEliminar);
+    botonEliminar.setAttribute("data-id", i);
 
-        botonEliminar.addEventListener("click", function () {
-            var index = parseInt(this.getAttribute("data-id"));
-            productos.splice(index, 1);
-            actualizarTablaProductos();
-        });
+    botonEliminar.addEventListener("click", function () {
+      var index = parseInt(this.getAttribute("data-id"));
+      productos.splice(index, 1);
+      actualizarTablaProductos();
+      guardarProductosEnAlmacenamientoLocal(); // Guardar los productos actualizados en el almacenamiento local
+    });
 
-        columnaEliminar.appendChild(botonEliminar);
-        fila.appendChild(columnaEliminar);
-        tablaBody.appendChild(fila);
-
-    }
-    // Seleccionar todos los campos de subtotal y sumarlos
-    //var subtotales = document.getElementsByClassName("subtotal");
-   // var total = 0;
-    //for (var i = 0; i < subtotales.length; i++) {
-      //  var subtotal = parseFloat(subtotales[i].innerHTML);
-       /* total += subtotal;
-    }
-
-    // Actualizar el valor del campo de texto Total
-    var totalField = document.getElementById("total");
-    totalField.textContent = total.toFixed(2);*/
+    columnaEliminar.appendChild(botonEliminar);
+    fila.appendChild(columnaEliminar);
+    tablaBody.appendChild(fila);
+  }
 }
 
+// Cargar los productos almacenados en el almacenamiento local al cargar la página
+function cargarProductosDesdeAlmacenamientoLocal() {
+  var productosGuardados = localStorage.getItem("productos");
+  if (productosGuardados) {
+    productos = productosGuardados.split(","); // Convertir la cadena de texto en un array
+  }
+}
+
+// Guardar los productos en el almacenamiento local
+function guardarProductosEnAlmacenamientoLocal() {
+  var productosString = productos.join(","); // Convertir el array en una cadena de texto separada por comas
+  localStorage.setItem("productos", productosString);
+}
+
+// Evento que se ejecuta al cargar la página
+window.addEventListener("load", function () {
+  cargarProductosDesdeAlmacenamientoLocal(); // Cargar los productos desde el almacenamiento local
+  actualizarTablaProductos();
+});
+
+// Resto del código para agregar productos, eliminar productos, etc.
+
+
+// Cargar los productos almacenados en el almacenamiento local al cargar la página
+function cargarProductosDesdeAlmacenamientoLocal() {
+  var productosGuardados = localStorage.getItem("productos");
+  if (productosGuardados) {
+    productos = JSON.parse(productosGuardados);
+  }
+}
+
+// Guardar los productos en el almacenamiento local
+function guardarProductosEnAlmacenamientoLocal() {
+  localStorage.setItem("productos", JSON.stringify(productos));
+}
+
+// Evento que se ejecuta al cargar la página
+window.addEventListener("load", function () {
+  cargarProductosDesdeAlmacenamientoLocal(); // Cargar los productos desde el almacenamiento local
+  actualizarTablaProductos();
+});
+
+// Resto del código para agregar productos, eliminar productos, etc.
 
 
 // Función para eliminar un producto del array

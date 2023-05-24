@@ -46,8 +46,8 @@ openPopupBtnsModal2.forEach(btn => {
         usuTelefonoInput.value = usutelefono;
         modal_actualizar_usuario.classList.add('active');
         //email
-        const usuemail = btn.getAttribute('data-prov-email');
-        const usuEmailInput = modal_actualizar_usuario.querySelector('#');
+        const usuemail = btn.getAttribute('data-usu-email');
+        const usuEmailInput = modal_actualizar_usuario.querySelector('#usuemail');
         usuEmailInput.value = usuemail;
         modal_actualizar_usuario.classList.add('active');
         //password

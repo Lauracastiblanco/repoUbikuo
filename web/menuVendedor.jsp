@@ -82,12 +82,14 @@
         <section class="dashboard">
             <div class="top">
                 <i class="uil uil-bars sidebar-toggle"></i>
-                <div class="text-header">
+                <!--<div class="text-header">
                     <p>Hola, <b>Daniela</b></p>
                     <small>Admin</small>
                 </div>
+                
+            </div>-->
+                <p>Hola, <b>Daniela</b></p>
                 <img src="ASSETS/fotoperfil.svg">
-            </div>
         </section>
         <!------------------- Codigo Java --------------------->
         <script src="JS/menu.js" type="text/javascript"></script>
