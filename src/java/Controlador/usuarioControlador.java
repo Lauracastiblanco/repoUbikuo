@@ -128,7 +128,7 @@ public class usuarioControlador extends HttpServlet {
                     }
                     break;
                 case 6:
-                    if (usuDAO.actualizarContraseña(id_usuario,usupassword)) { 
+                    if (usuDAO.actualizarContraseña(id_usuario, usupassword)) {
                         request.setAttribute("mensajeExito", "La contraseña se actualizo correctamente.");
                     } else {
                         request.setAttribute("mensajeError", "La contraseña no se actualizo correctamente");
@@ -179,4 +179,4 @@ public class usuarioControlador extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-}  
+}

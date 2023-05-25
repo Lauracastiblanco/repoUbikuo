@@ -55,7 +55,6 @@ public class productosDAO extends ConexionBd implements Crud {
             Logger.getLogger(productosDAO.class.getName()).log(Level.SEVERE, null, e);
 
         }
-
     }
 
     @Override

@@ -45,21 +45,21 @@ public class pedProveedorControlador extends HttpServlet {
             String prorepresentante = request.getParameter("prorepresentante");
             String procorreo = request.getParameter("procorreo");
             String prodireccion = request.getParameter("prodireccion");
-
-            // Pasar los datos a la vista
-            request.setAttribute("ped_id_proveedor", ped_id_proveedor);
-            request.setAttribute("id_usuario", id_usuario);
-            request.setAttribute("pronombre", pronombre);
-            request.setAttribute("prorepresentante", prorepresentante);
-            request.setAttribute("procorreo", procorreo);
-            request.setAttribute("prodireccion", prodireccion);
-
+            
             pedidoProveedorVO pedProvVO = new pedidoProveedorVO(ped_id_proveedor, id_usuario);
             pedidoProveedorDAO pedProvDAO = new pedidoProveedorDAO(pedProvVO);
 
             switch (opcion) {
                 case 1:
                     if (pedProvDAO.agregarRegistro()) { // agregar registro
+                        // Pasar los datos a la vista
+                        request.setAttribute("ped_id_proveedor", ped_id_proveedor);
+                        request.setAttribute("id_usuario", id_usuario);
+                        request.setAttribute("pronombre",pronombre);
+                        request.setAttribute("prorepresentante",prorepresentante);
+                        request.setAttribute("procorreo",procorreo);
+                        request.setAttribute("prodireccion",prodireccion);
+
                         // Redirigir a la siguiente página
                         request.getRequestDispatcher("PedidoProveedor.jsp").forward(request, response);
                     } else {

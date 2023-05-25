@@ -33,3 +33,6 @@ $(document).ready(function() {
 $(document).ready(function() {
   $('.select3').select2();
 });
+$(document).ready(function() {
+  $('.select4').select2();
+});

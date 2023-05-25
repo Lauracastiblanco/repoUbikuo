@@ -79,7 +79,6 @@
                                         <option value="<%= id_prov%>" data-nombre="<%= rolVO.getPronombre()%>" data-representante="<%= rolVO.getProrepresentante()%>" data-direccion="<%= rolVO.getProdireccion()%>" data-correo="<%= rolVO.getProcorreo()%>"><%= rolVO.getPronombre()%> NIT <%= rolVO.getId_prov()%></option>
                                         <% }%>
                                     </select>
-
                                 </div>
                                 <div class="box-container">
                                     <label>Nombre</label>
@@ -99,31 +98,37 @@
                                 </div>
                             </div>
                         </div>
-                        <h2>Lista de Productos</h2>
-                        <table class="tabla1" id="tablaProductos">
-                            <thead>
-                                <tr>
-                                    <th>Id Producto</th>
-                                    <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Sub Total</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="list" items="${listaProductos}">
-                                <tr>
-                                    <td>${listaProductos.getDpro_id_producto()}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <button class="generar-pedido">Generar Pedido</button>
+                        <form method="post" action="DetallesPedidoProveedor">
+                            <h2>Lista de Productos</h2>
+                            <table class="tabla1">
+                                <thead>
+                                    <tr>
+                                        <td>Item</td>
+                                        <th>Id Producto</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Sub Total</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="detalle" items="${listaProductos}">
+                                        <tr>
+                                            <td>${detalle.item}</td>
+                                            <td>${detalle.dpro_id_producto}</td>
+                                            <td>${detalle.descripcionProducto}</td>
+                                            <td>${detalle.dpro_cantidad}</td>
+                                            <td>${detalle.dpro_preciocompra}</td>
+                                            <td>${detalle.dpro_subtotal}</td>
+                                            <td>Acciones</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <button class="generar-pedido">Generar Pedido</button>
+                            <input  type="hidden" name="opcion" value="2">
+                        </form>
                     </div>
                     <div class="columna2">
                         <h3 class="titulo-prod">Productos</h3>
@@ -134,21 +139,11 @@
                                         <label>Producto</label>
                                         <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect">
                                             <option value="">Seleccione...</option>
-                                            <%
-                                                productosDAO prodDAO = new productosDAO();
-                                                CategoriaDAO catProdDAO = new CategoriaDAO();
-                                                List<CategoriaVO> listaCategorias = catProdDAO.listarC();
-                                                for (CategoriaVO catVO : listaCategorias) {
-                                                    List<productosVO> listaProductos = prodDAO.listarCategoria(catVO.getId_cat());
-                                                    if (!listaProductos.isEmpty()) {
-                                            %>
-                                            <optgroup label="Categoria: <%=catVO.getCatnombre()%>">
-                                                <% for (productosVO prodVO : listaProductos) {%>
-                                                <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProd_descripcion()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> - REF: <%=prodVO.getId_prod()%></option>
-                                                <% } %>
-                                            </optgroup>
-                                            <% }
-                            }%>
+                                            <% productosDAO prodDAO = new productosDAO();
+                                                List<productosVO> listaProductos = prodDAO.listar();
+                                                for (productosVO prodVO : listaProductos) {%>
+                                            <option class="producto-option" value="<%= prodVO.getId_prod()%>" data-descripcion="<%= prodVO.getProd_descripcion()%>" data-precio="<%= prodVO.getProdprecio()%>" data-stock="<%= prodVO.getProdstock_disp()%>"><%= prodVO.getProdnombre()%> - REF: <%= prodVO.getId_prod()%></option>
+                                            <% }%>
                                         </select>
                                         <label>Descripción</label>
                                         <input type="text" placeholder="Descripcion" id="prod_descripcion" name="prod_descripcion" >
@@ -170,10 +165,11 @@
                 </div>
             </div>
         </section>
-        <script src="JS/agregaProducto.js" type="text/javascript"></script>
         <script src="JS/pedidoproveedor.js" type="text/javascript"></script>
         <script src="JS/buscador.js" type="text/javascript"></script>
         <script src="JS/popup.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         <script>
                   // Obtener los valores del almacenamiento local
            var id_usuario = localStorage.getItem('id_usuario');

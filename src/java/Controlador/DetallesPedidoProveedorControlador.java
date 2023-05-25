@@ -24,12 +24,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DetallesPedidoProveedorControlador", urlPatterns = {"/DetallesPedidoProveedor"})
 public class DetallesPedidoProveedorControlador extends HttpServlet {
 
-    ;
-            DetallesPedidoProveedorDAO detProvDAO = new DetallesPedidoProveedorDAO();
+    DetallesPedidoProveedorDAO detProvDAO = new DetallesPedidoProveedorDAO();
     DetallesPedidoProveedorVO detProvVO = new DetallesPedidoProveedorVO();
     String idProducto;
     String nombreProducto;
-    int cantidad;
+    int cantidad, item;
     double precioUnitario, subtotal;
     List<DetallesPedidoProveedorVO> listaProductos = new ArrayList<>();
 
@@ -41,21 +40,34 @@ public class DetallesPedidoProveedorControlador extends HttpServlet {
             switch (opcion) {
                 case 1:
                     detProvVO = new DetallesPedidoProveedorVO(); // Crear una nueva instancia en cada iteración
+                    item = item + 1;
                     idProducto = request.getParameter("id_prod");
                     nombreProducto = request.getParameter("prod_descripcion");
                     precioUnitario = Double.parseDouble(request.getParameter("prodprecio"));
                     cantidad = Integer.parseInt(request.getParameter("dpro_cantidad"));
                     subtotal = precioUnitario * cantidad;
+                    detProvVO.setItem(item);
                     detProvVO.setDpro_id_producto(idProducto);
+                    detProvVO.setDescripcionProducto(nombreProducto);
                     detProvVO.setDpro_preciocompra(precioUnitario);
                     detProvVO.setDpro_cantidad(cantidad);
                     detProvVO.setDpro_subtotal(subtotal);
                     listaProductos.add(detProvVO);
                     request.setAttribute("listaProductos", listaProductos);
                     break;
+                case 2:
+                    // Obtener el último id de pedido
+                    int ultimoIdPedido = detProvDAO.obtenerUltimoIdPedido();
+
+                    // Insertar los detalles de pedido en la tabla
+                    detProvDAO.agregarDetallesPedido(ultimoIdPedido, listaProductos);
+
+                    // Limpiar la lista de productos después de insertarlos en la tabla
+                    listaProductos.clear();
+                    break;
 
             }
-            request.getRequestDispatcher("PedidoPorveedor.jsp").forward(request, response);
+            request.getRequestDispatcher("PedidoProveedor.jsp").forward(request, response);
 
         }
     }
