@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cotizacion</title>
+        <title>Cotización</title>
         <!--------------------- Iconos ------------------------------->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!--------------------- Select ------------------------------->
@@ -29,19 +29,8 @@
         <link href="CSS/pedido.css" rel="stylesheet" type="text/css"/>
     </head>
 
-    <%
-        // Obtener la fecha actual
-        Date fecha = new Date();
-
-        // Definir el formato deseado
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Formatear la fecha en el formato deseado
-        String fechaFormateada = sdf.format(fecha);
-    %>
-
     <body>
-        <form action="/Controlador/Cotizacion" method="post">
+        <form action="Controlador/cotizacion" method="POST">
             <section class="main">
                 <div class="dash-content">
                     <div class="overview">
@@ -51,111 +40,54 @@
                     </div>
                     <div class="container">
                         <div class="columna1">
-                            <div class="datos-usu">
-                                <%
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    Date currentDate = new Date();
-                                    String currentDateStr = dateFormat.format(currentDate);
-                                %>
+                            <div class="caja1">
+                                <h4>Datos Generales</h4>
                                 <div class="box-container">
                                     <label>Fecha</label>
-                                    <input type="date" value="<%= currentDateStr%>"readonly>
+                                    <input type="date" value="<%= java.time.LocalDate.now()%>" readonly>
                                 </div>
                                 <div class="box-container">
+                                    <label>usuario</label><br>
 
-                                </div>
-                                <label>usuario</label><br>
-                                <div class="box-container">
                                     <select name="cot_id_usuario">
                                         <option>seleccione</option>
-                                        <%
-                                            usuarioDAO usuDAO = new usuarioDAO();
-                                            for (usuarioVO usuVO : usuDAO.listar()) {
-
-                                        %>
-                                        <option value="<%=usuVO.getId_usuario()%>"><%=usuVO.getUsunombre()%></option>
-                                        <% }%>
+                                        <%-- Aquí puedes agregar lógica para cargar los usuarios --%>
                                     </select>
                                 </div>
 
+
                                 <h4>Datos del Cliente</h4>
                                 <div class="datos-prov">
-
                                     <div class="box-container">
                                         <label>Id Cliente</label>
-                                        <input type="text"  name="cot_id_cliente" value="${c.getId_cliente()}" >
+                                        <input type="text" name="cot_id_cliente" value="" >
                                     </div>  
-                                    <button type="submit" name="accion" value="buscarcliente" class="btn btn-secondary" >buscar</button>
+                                    <button type="submit" class="generar-pedido" name="accion" value="buscarcliente" class="btn btn-secondary" >buscar</button>
                                     <div class="box-container">
                                         <label>Nombre</label>
-                                        <input type ="text" name="nombrescliente" value="${c.getClinombre()}" placeholder="Nombre" readonly>
+                                        <input type ="text" name="nombrescliente" value="" placeholder="Nombre" readonly>
                                     </div>
                                     <div class="box-container">
                                         <label>Apellido</label>
-                                        <input type ="text" name="apellidocliente" value="${c.getCliapellido()}" placeholder="apellido" readonly>
+                                        <input type ="text" name="apellidocliente" value="" placeholder="apellido" readonly>
                                     </div>
                                     <div class="box-container">
                                         <label>Direccion</label>
-                                        <input type ="text" name="Direccion" value="${c.getClidireccion()}" placeholder="Direccion" readonly>
+                                        <input type ="text" name="Direccion" value="" placeholder="Direccion" readonly>
                                     </div>
                                     <div class="box-container">
-                                        <label>Direccion</label>
-                                        <input type ="text" name="Telefono" value="${c.getClitelefono()} "placeholder="Telefono" readonly>
+                                        <label>Telefono</label>
+                                        <input type ="text" name="Telefono" value="" placeholder="Telefono" readonly>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="columna2">
-
-                                <h3 class="titulo-prod">Productos</h3>
-                                <div class="caja2">
-                                    <div class="productos">
-                                        <div class="datosproductos">
-                                            <div class="box-container"> 
-                                                <label>Codigo</label>
-                                                <input type="text"  name="dc_id_prod" value="${pr.getId_prod()}"  >
-                                                <button type="submit" name="accion" value="buscarproducto" class="btn btn-secondary">buscar</button>
-                                            </div>
-                                            <div class="box-container"> 
-                                                <label>Producto</label>
-                                                <input type ="text" name="nomproducto" value="${pr.getProdNombre()}" placeholder="producto" >
-                                            </div>
-                                            <div class="box-container"> 
-                                                <label>Precio</label>
-                                                <input type="number" id="precio" name="precio" value="${pr.getProdPrecio()}" placeholder="$/.0.00">
-                                            </div>
-                                            <div class="box-container"> 
-                                                <label>Cantidad</label>
-                                                <input type="number" id="cantidad" name="cantidad" placeholder="cantidad" >  
-                                            </div>
-                                            <div class="box-container"> 
-                                                <label>Stock</label>
-                                                <input type="text" id="stock" name="stock"  value="${pr. getProdstock_disp()}" placeholder="stock" >
-                                            </div>
-
-
-
-
-                                            <div >
-                                                <button type="submit" name="accion" value="agregarproducto" class="btn btn-success">agregar</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                 
-
-                            <div class="card">
-                                <div class="card-body">
+                                <h2>Estado</h2>
+                                <table class="tabla1">
                                     <label for="estado">Selecciona un estado:</label>
                                     <select id="estado" name="estado">
                                         <option value="pendiente">Pendiente</option>
                                         <option value="aprobado">Aprobado</option>
                                         <option value="rechazado">Rechazado</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="columna3">
-                                <table class="tabla1">
                                     <thead>
                                         <tr>
                                             <th>item</th>
@@ -168,73 +100,79 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="list" items="${lista}">
-                                            <tr>
-                                                <td>${list.getItem()}</td>
-                                                <td>${list.getDc_id_producto()}</td>
-                                                <td>${list.getNombreproductoL()}</td>
-                                                <td>${list.getCantidad()}</td>
-                                                <td>${list.getPrecio()}</td>
-                                                <td>${list.getSubtotal()}</td>
-                                                <td></td>
-                                                <td class="d-flex">
-
-                                                    <a class="btn btn-danger" style="margin-left: 10px">Borrar</a>
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                        </c:forEach>
+                                        <%-- Aquí puedes agregar lógica para mostrar los productos agregados --%>
                                     </tbody>
                                 </table>
+                            </div>
+                            <br>
+                            <div class="card-footer d-flex parte04">
+                                <div class="col-sm-6 ml-auto">
+                                    <a href="cotizacion/generarcotizacion" onclick="print()" class="generar-pedido">generar cotizacion</a>
+                                    <input type="submit" name="action" value="Cancelar" onclick="cancelarRegistro()" class="generar-pedido" style="margin-left: 10px">
+                                </div>
+                                <br>
+                                <div class="col-sm-6 ml-auto">
+                                    <input type="text" name="Total" class="form-control" value="" placeholder="total" readonly>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
 
+                        <div class="columna2">    
+                            <h3 class="titulo-prod">Productos</h3>
+                            <div class="caja2">
+                                <div class="productos">
+                                    <div class="datosproductos">
+                                        <label>Codigo</label>
+                                        <input type="text" name="dc_id_prod" value=""  >
+                                        <button type="submit" class="generar-pedido" name="accion" value="buscarproducto" class="btn btn-secondary">buscar</button>
 
+                                        <label>Producto</label>
+                                        <input type ="text" name="nomproducto" value="" placeholder="producto" >
 
+                                        <label>Precio</label>
+                                        <input type="number" id="precio" name="precio" value="" placeholder="$/.0.00">
 
+                                        <label>Cantidad</label>
+                                        <input type="number" id="cantidad" name="cantidad" placeholder="cantidad" >  
 
-
-
-                                <div class="card-footer d-flex parte04">
-                                    <div class="col-sm-6">
-                                        <a href="Controlador?menu=cotizacion&accion=generarcotizacion" onclick="print()" class="btn btn-success">generar cotizacion</a>
-
-                                        <input type="submit" name="action" value="Cancelar" onclick="cancelarRegistro()" class="btn btn-danger" style="margin-left: 10px">
+                                        <label>Stock</label>
+                                        <input type="text" id="stock" name="stock"  value="" placeholder="stock" >
                                     </div>
-                                    <div class="col-sm-3 ml-auto">
-                                        <input type="text" name="Total" class="form-control" value="${Total}" placeholder="total" readonly>
+
+                                    <div >
+                                        <button type="submit" class="generar-pedido" name="accion" value="agregarproducto" class="btn btn-success">agregar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>      
-
-
-
+                </div>
             </section>
-        </center>
+        </form>
         <script src="JS/agregaProducto.js" type="text/javascript"></script>
         <script src="JS/pedidoproveedor.js" type="text/javascript"></script>
         <script src="JS/buscador.js" type="text/javascript"></script>
         <script src="JS/popup.js" type="text/javascript"></script>
-</body>
-<script>
-                                    function deleteItem(itemId) {
-                                    // Aquí puedes escribir la lógica para eliminar el registro con el id "itemId"
-                                    }
+    </body>
+    <script>
+                                        function deleteItem(itemId) {
+                                        // Aquí puedes escribir la lógica para eliminar el registro con el id "itemId"
+                                        }
 
-                                    const deleteButtons = document.querySelectorAll('.btn-danger');
-                                    deleteButtons.forEach(button = > {
-                                    button.addEventListener('click', () = > {
-                                    const itemId = button.parentNode.parentNode.firstChild.textContent;
-                                    deleteItem(itemId);
-                                    button.parentNode.parentNode.remove();
-                                    });
-                                    });</script>
-<script>
-    function cancelarRegistro() {
-    if (confirm("¿Está seguro que desea cancelar el registro?")) {
-    window.location.href = "RegistrarCotizacion.jsp";
-    }
-    }
-</script>
+                                        const deleteButtons = document.querySelectorAll('.btn-danger');
+                                        deleteButtons.forEach(button = > {
+                                        button.addEventListener('click', () = > {
+                                        const itemId = button.parentNode.parentNode.firstChild.textContent;
+                                        deleteItem(itemId);
+                                        button.parentNode.parentNode.remove();
+                                        });
+                                        });</script>
+    <script>
+        function cancelarRegistro() {
+        if (confirm("¿Está seguro que desea cancelar el registro?")) {
+        window.location.href = "RegistrarCotizacion.jsp";
+        }
+        }
+    </script>
 </html>
