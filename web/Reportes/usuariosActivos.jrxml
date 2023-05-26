@@ -67,7 +67,7 @@
 			<staticText>
 				<reportElement style="SubTitle" x="454" y="66" width="99" height="29" forecolor="#000000" uuid="13bc559f-ca02-4690-8267-5f815fb1472e"/>
 				<textElement>
-					<font fontName="Franklin Gothic Demi Cond" size="22" isBold="false" isItalic="true" pdfEncoding="Cp1252"/>
+					<font fontName="SansSerif" size="22" isBold="false" isItalic="true" pdfEncoding="Cp1252"/>
 				</textElement>
 				<text><![CDATA[ACTIVOS]]></text>
 			</staticText>

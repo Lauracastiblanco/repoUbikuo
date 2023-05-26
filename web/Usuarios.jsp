@@ -96,10 +96,11 @@
                         </div>
                         <div class="box box3">
                             <i class='bx bxs-report activos'></i>
-                            <!--<form method="post" action="generadorReportes.jsp" target="_blank">
-                                <!---<input type="submit" value="Generar PDF">
-                            </form> -->
+                            
                             <span class="text">Generar Reporte</span>
+                            <form method="post" action="generadorReportes.jsp" target="_blank">
+                                <input type="submit" value="Generar PDF">
+                            </form> 
                         </div>
                         <div class="box box2">
                             <i class='bx bxs-user-check activos' ></i>
