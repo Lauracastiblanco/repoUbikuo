@@ -38,8 +38,10 @@ public class Controladorcotizacion extends HttpServlet {
     usuarioVO usuVO = new usuarioVO();
     cotizacionDAO ctDAO = new cotizacionDAO();
     List<cotizacionVO> listaprod = new ArrayList<>();
-    int item, subtotal, dc_cantidad, cod, idcotizacion;
-    double dc_precio, total;
+    int idProducto,idcotizacion;
+    String nombreProducto;
+    int cantidad;
+    double precioUnitario, subtotal,total;
     String numeroserie;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -69,33 +71,25 @@ public class Controladorcotizacion extends HttpServlet {
                 break;
             case "agregarproducto":
 
-                ctVO = new cotizacionVO();
-                item++;
-
-                producto = request.getParameter("nomproducto");
-                dc_cantidad = Integer.parseInt(request.getParameter("cantidad"));
-                dc_precio = Double.parseDouble(request.getParameter("precio"));
-
-                subtotal = (int) (dc_cantidad * dc_precio);
-                ctVO.setItem(item);
-                cod = Integer.parseInt(prVO.getId_prod());
-                ctVO.setDc_id_producto(cod);
-                ctVO.setNombreproductoL(producto);
-                ctVO.setCantidad(dc_cantidad);
-                ctVO.setPrecio(dc_precio);
-                ctVO.setSubtotal(subtotal);
-                ctVO.setTotal(total);
-
-                listaprod.add(ctVO);
-                for (int i = 0; i < listaprod.size(); i++) {
-                    total = total + listaprod.get(i).getSubtotal();
+                 ctVO = new cotizacionVO(); // Crear una nueva instancia en cada iteración
+                    idProducto = Integer.parseInt(request.getParameter("id_prod"));
+                    nombreProducto = request.getParameter("prod_descripcion");
+                    precioUnitario = Double.parseDouble(request.getParameter("prodprecio"));
+                    cantidad = Integer.parseInt(request.getParameter("dpro_cantidad"));
+                    subtotal = precioUnitario * cantidad;
+                    ctVO.setDc_id_producto(idProducto);
+                    ctVO.setNombreproductoL(nombreProducto);
+                    ctVO.setPrecio(precioUnitario);
+                    ctVO.setCantidad(cantidad);
+                    ctVO.setSubtotal(subtotal);
+                    for (int i = 0; i <listaprod.size(); i++) {
+                    total=total+listaprod.get(i).getSubtotal();
                 }
-                request.setAttribute("Total", total);
-
-                request.setAttribute("c", cvo);
-                request.setAttribute("pr", prVO);
-                request.setAttribute("lista", listaprod);
-                break;
+                  request.setAttribute("Total", total);
+                    listaprod.add(ctVO);
+                    
+                    request.setAttribute("listaProductos", listaprod);
+                    break;
 
             case "generarcotizacion":
                 //guardar cotizacion
@@ -105,6 +99,7 @@ public class Controladorcotizacion extends HttpServlet {
                 ctVO.setTotal(total);
                 ctVO.setCotestado("pendiente");
                 ctDAO.guardarCotizacion(ctVO);
+                
                 //guardar detalles
 
                 idcotizacion = ctDAO.idCotizacion();
@@ -124,12 +119,12 @@ public class Controladorcotizacion extends HttpServlet {
             default:
                 ctVO = new cotizacionVO();
                 listaprod = new ArrayList<>();
-                item = 0;
+               
                 total = 0.0;
 
         }
 
-        request.getRequestDispatcher("RegistrarCotizacion.jsp").forward(request, response);
+        request.getRequestDispatcher("CrearCotizacion1.jsp").forward(request, response);
 
     }
 
