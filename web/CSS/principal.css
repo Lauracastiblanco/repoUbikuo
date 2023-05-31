@@ -189,7 +189,7 @@ nav.close ~ .main{
 .dash-content .table-data .order table tr td  .status.inactive {
     background: red;
 }
-.dash-content .table-data .order table td button.actualizar-usuario{
+.dash-content .table-data .order table td button.updatebutton{
     width: 35px;
     height: 35px;
     font-size: 30px;

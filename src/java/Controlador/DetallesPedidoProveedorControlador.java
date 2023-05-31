@@ -29,7 +29,7 @@ public class DetallesPedidoProveedorControlador extends HttpServlet {
     String idProducto;
     String nombreProducto;
     int cantidad, item;
-    double precioUnitario, subtotal;
+    double precioUnitario, subtotal; //CREAR VARIABLES DE LA TABLA
     List<DetallesPedidoProveedorVO> listaProductos = new ArrayList<>();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

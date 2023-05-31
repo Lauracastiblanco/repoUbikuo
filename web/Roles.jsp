@@ -38,39 +38,39 @@
                                     <form method = "post" action="roles">
                                         <div class="module-details">
                                             <div class="input-box">
-                                                <span class="details">Nombre* </span>
+                                                <span class="details">Nombre<span style="color: red;">*</span></span>
                                                 <input type="text" name="rolnombre" placeholder="Ingrese nombre..." required>
                                             </div>
                                         </div>
-                                        <button class="registrarbtn">Registrar Rol</button>
-                                        <input  type="hidden" name="opcion" value="1">
+                                        <div class="controls">
+                                            <a href="#" class="cancelarbtn">Cancelar</a>
+                                            <button class="registrarbtn">Registrar Usuario</button>
+                                            <input  type="hidden" name="opcion" value="1">
+                                        </div>
                                     </form>
-                                    <div class="controls">
-                                        <button class="cancelarbtn">Cancelar</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="box box2">
                             <i class='bx bxs-user-check activos' ></i>
                             <span class="number">10</span>
-                            <span class="text">Usuarios activos</span>
+                            <span class="text">Roles activos</span>
                         </div>
                         <div class="box box3">
                             <i class='bx bxs-user total'></i>
                             <span class="number">20</span>
-                            <span class="text">Total usuarios</span>
+                            <span class="text">Total Roles</span>
                         </div>
                     </div>
                 </div>
                     <div id="customers" class="table-data">
                         <div  class="order">
                             <div class="head">
-                                <h3>Consultar Usuario</h3>
+                                <h3>Consultar Rol</h3>
                                 <div class="buscar">
                                     <input type="text" id="buscador" name="id_usuario"class="buscar__input" placeholder="Buscar">
                                 </div>
-                                <select id="estado">
+                                <select class="selectico" id="estado">
                                     <option value="">Todos</option>
                                     <option value="activo">Activo</option>
                                     <option value="inactivo">Inactivo</option>
@@ -83,6 +83,8 @@
                                     <tr>
                                         <th>Identificación</th>
                                         <th>Nombre Rol</th>
+                                        <th>Estado</th>
+                                        <th>Actualizar</th>
                                     </tr>
                                 </thead>
                                 <%
@@ -97,17 +99,22 @@
                                     <tr class="daticos">
                                         <td><%=rolVO.getId_Rol()%></td>
                                         <td><%=rolVO.getRolnombre()%></td>
-                                        <td><button class="open-popup actualizar-rol" data-popup="popup2" data-rol-id="<%=rolVO.getId_Rol()%>">
+                                        <td>Activo</td>
+                                        <td><button class="open-popup actualizar-rol updatebutton" data-popup="popup2" data-rol-id="<%=rolVO.getId_Rol()%>">
                                                 <i class='bx bx-edit actualizar'></i></button>
                                             <div class="popup actualizar-popup" id="popup2">
                                                 <div class="overlay"></div>
                                                 <div class="popup-content">
                                                     <h2>Actualizar Rol</h2>
-                                                    <form method = "post" action="roles">
+                                                    <form method="post" action="roles">
                                                         <div class="module-details">
                                                             <div class="input-box">
                                                                 <span class="details">Identificación </span>
                                                                 <input type="text" name ="id_Rol" placeholder="Identificacion" id="id_Rol">
+                                                            </div>
+                                                            <div class="input-box">
+                                                                <span class="details">Nombre </span>
+                                                                <input type="text" name ="rolnombre" placeholder="Nombre" id="rolnombre">
                                                             </div>
                                                             <div class="input-box">
                                                                 <span class="details">Nombre </span>

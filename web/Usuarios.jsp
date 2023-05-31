@@ -39,35 +39,35 @@
                                     <form method= "post" action="usuario">
                                         <div class="module-details">
                                             <div class="input-box">
-                                                <span class="details">Nombre(s)* </span>
+                                                <span class="details">Nombre(s)<span style="color: red;">*</span> </span>
                                                 <input type="text" name ="usunombre" placeholder="Nombre(s)" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Apellidos* </span>
+                                                <span class="details">Apellidos<span style="color: red;">*</span> </span>
                                                 <input type="text" name ="usuapellido" placeholder="Apellidos" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Documento* </span>
+                                                <span class="details">Documento<span style="color: red;">*</span> </span>
                                                 <input type="text" name="id_usuario" inputmode="numeric" pattern="[0-9]{1,10}" maxlength="10" placeholder="Documento" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Dirección* </span>
+                                                <span class="details">Dirección<span style="color: red;">*</span> </span>
                                                 <input type="text" name ="usudireccion" placeholder="Dirección" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Telefono * </span>
+                                                <span class="details">Telefono<span style="color: red;">*</span> </span>
                                                 <input type="number" name ="usutelefono" placeholder="Celular" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Correo Electronico* </span>
+                                                <span class="details">Correo Electronico<span style="color: red;">*</span> </span>
                                                 <input type="email" name ="usuemail" placeholder="Correo Electronico" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Contraseña* </span>
+                                                <span class="details">Contraseña<span style="color: red;">*</span> </span>
                                                 <input type="password"  name="usupassword" placeholder="Contraseña" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Rol*</span>
+                                                <span class="details">Rol<span style="color: red;">*</span></span>
                                                 <select name="usu_id_rol" >
                                                     <%
                                                         rolesDAO rolDAO = new rolesDAO();
@@ -78,7 +78,7 @@
                                                 </select>
                                             </div>
                                             <div class="input-box">
-                                                <span class="details">Estado*</span>
+                                                <span class="details">Estado<span style="color: red;">*</span></span>
                                                 <select name="usuestado">
                                                     <option value="activo">Activo</option>
                                                     <option value="inactivo">Inactivo</option>
@@ -96,9 +96,9 @@
                         </div>
                         <div class="box box3">
                             <i class='bx bxs-report activos'></i>
-                            <!--<form method="post" action="generadorReportes.jsp" target="_blank">
-                                <!---<input type="submit" value="Generar PDF">
-                            </form> -->
+                            <form method="post" action="generadorReportes.jsp" target="_blank">
+                                <input type="submit" value="Generar PDF">
+                            </form>
                             <span class="text">Generar Reporte</span>
                         </div>
                         <div class="box box2">
@@ -163,7 +163,7 @@
                                     <td><%=usuVO.getUsupassword()%></td>
                                     <td class="estado-usuario"><span class="status <%=usuVO.getUsuestado().equals("activo") ? "completed" : "inactive"%>"><%=usuVO.getUsuestado()%></span></td>
                                     <td>Administrador</td>
-                                    <td><button class="open-popup actualizar-usuario" data-popup="popup2" data-usu-id="<%=usuVO.getId_usuario()%>" data-usu-nombre="<%=usuVO.getUsunombre()%>" data-usu-apellido="<%=usuVO.getUsuapellido()%>"data-usu-direccion="<%=usuVO.getUsudireccion()%>" data-usu-telefono="<%=usuVO.getUsutelefono()%>" data-usu-email="<%=usuVO.getUsuemail()%>" data-usu-password="<%=usuVO.getUsupassword()%>" data-usu-rol="<%=usuVO.getUsu_id_rol()%>"data-usu-estado="<%=usuVO.getUsuestado()%>">
+                                    <td><button class="open-popup actualizar-usuario updatebutton" data-popup="popup2" data-usu-id="<%=usuVO.getId_usuario()%>" data-usu-nombre="<%=usuVO.getUsunombre()%>" data-usu-apellido="<%=usuVO.getUsuapellido()%>"data-usu-direccion="<%=usuVO.getUsudireccion()%>" data-usu-telefono="<%=usuVO.getUsutelefono()%>" data-usu-email="<%=usuVO.getUsuemail()%>" data-usu-password="<%=usuVO.getUsupassword()%>" data-usu-rol="<%=usuVO.getUsu_id_rol()%>"data-usu-estado="<%=usuVO.getUsuestado()%>">
                                             <i class='bx bx-edit actualizar'></i></button>
                                             <%}%>
                                         <div class="popup actualizar-popup" id="popup2">

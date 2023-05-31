@@ -38,7 +38,7 @@ nav{
     height: 100%;
     width: 250px;
     padding: 10px 20px;
-    background-color: #d6d4d4;
+    background-color: #f2efef;
     transition: all 0.5s ease;
 }
 nav.close{
@@ -133,7 +133,7 @@ nav.close li a .link-name{
 }
 /*---- Barra Superior ---- */
 .dashboard .top{
-    position: fixed;
+  position: fixed;
   top: 0;
   left: 250px;
   display: flex;
@@ -141,7 +141,7 @@ nav.close li a .link-name{
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background-color: #d6d4d4;
+  background-color: #f2efef;
   transition: all 0.3s ease;
   z-index: 10;
 }
