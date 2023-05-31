@@ -5,7 +5,6 @@ package JavaMail;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -42,38 +41,44 @@ public class envioCorreo extends HttpServlet {
             throws ServletException, IOException {
 
         String destino = request.getParameter("destino");
-        String asunto = "Registro de solicitud de cuenta de usuario– ELECTRICOS ESTRADA S.A.S ";
+        String asunto = "Registro de solicitud de cuenta de usuario – ELECTRICOS ESTRADA S.A.S ";
         String mensaje = "Estimado(a) Usuario: "
-                + "\nPor favor haga clic en el siguiente enlace para restablecer su contraseña: "   
+                + "\nPor favor haga clic en el siguiente enlace para restablecer su contraseña: "
                 + "http://localhost:8080/repoUbikuo/nuevaContrase%C3%B1a.jsp";
 
         String resultadoMensaje = "";
 
-        if (validarCorreo(destino)) {
-            try {
-                PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);
-                resultadoMensaje = "El correo ha sido enviado.";
-            } catch (Exception e) {
-                e.printStackTrace();
-                resultadoMensaje = "Error al enviar el correo: " + e.getMessage();
+        if (esCorreoValido(destino)) {
+            if (validarCorreo(destino)) {
+                try {
+                    PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);
+                    resultadoMensaje = "El correo ha sido enviado.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resultadoMensaje = "Error al enviar el correo: " + e.getMessage();
+                }
+            } else {
+                resultadoMensaje = "El correo electrónico no existe en la base de datos.";
             }
         } else {
-            resultadoMensaje = "El correo electrónico no existe en la base de datos.";
+            resultadoMensaje = "El correo electrónico no es válido.";
         }
 
         request.setAttribute("EstadoMensaje", resultadoMensaje);
         getServletContext().getRequestDispatcher("/mensajeConfirmacion.jsp").forward(request, response);
     }
-    
-    private boolean validarCorreo(String correo){
+
+    private boolean validarCorreo(String destino) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ubikuo_final", "root", "");
+
             String sql = "SELECT COUNT(*) FROM tblusuarios WHERE usuemail = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, correo);
+            stmt.setString(1, destino);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -97,7 +102,14 @@ public class envioCorreo extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
         return false;
     }
-}
 
+    private boolean esCorreoValido(String correo) {
+        // Expresión regular para validar el formato del correo electrónico
+        String patronCorreo = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return correo.matches(patronCorreo);
+    }
+
+}

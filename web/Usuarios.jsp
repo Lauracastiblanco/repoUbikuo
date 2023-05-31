@@ -20,6 +20,7 @@
         <link href="CSS/principal.css" rel="stylesheet" type="text/css"/>
         <!--------------------- Iconos ------------------------------->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <script src="../JS/valRUsuarios.js"></script>
     </head>
     <body>
         <section class="main">
@@ -41,30 +42,37 @@
                                             <div class="input-box">
                                                 <span class="details">Nombre(s)* </span>
                                                 <input type="text" name ="usunombre" placeholder="Nombre(s)" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Apellidos* </span>
                                                 <input type="text" name ="usuapellido" placeholder="Apellidos" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Documento* </span>
                                                 <input type="text" name="id_usuario" inputmode="numeric" pattern="[0-9]{1,10}" maxlength="10" placeholder="Documento" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Dirección* </span>
                                                 <input type="text" name ="usudireccion" placeholder="Dirección" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Telefono * </span>
                                                 <input type="number" name ="usutelefono" placeholder="Celular" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Correo Electronico* </span>
                                                 <input type="email" name ="usuemail" placeholder="Correo Electronico" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Contraseña* </span>
                                                 <input type="password"  name="usupassword" placeholder="Contraseña" required>
+                                                <div class="error-mensaje"></div>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Rol*</span>

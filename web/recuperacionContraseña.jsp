@@ -38,8 +38,5 @@
             </div>
         </div>
         <script src="JS/login.js" type="text/javascript"></script>
-        <script>
-            
-        </script>
     </body>
 </html>
