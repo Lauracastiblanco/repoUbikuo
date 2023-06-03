@@ -12,11 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/APRENDIZ/Documents/NetBeansProjects/repoUbikuo/src/java/Controlador/Controladorcotizacion.java</file>
-            <file>file:/C:/Users/APRENDIZ/Documents/NetBeansProjects/repoUbikuo/src/java/ModeloVO/ClienteVO.java</file>
-            <file>file:/C:/Users/APRENDIZ/Documents/NetBeansProjects/repoUbikuo/src/java/ModeloVO/CategoriaVO.java</file>
-            <file>file:/C:/Users/APRENDIZ/Documents/NetBeansProjects/repoUbikuo/web/CrearCotizacion1.jsp</file>
-            <file>file:/C:/Users/APRENDIZ/Documents/NetBeansProjects/repoUbikuo/src/java/ModeloDAO/ClienteDAO.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/repoUbikuo/web/CrearCotizacion1.jsp</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/repoUbikuo/src/java/Controlador/ControladorCotizacion.java</file>
+            <file>file:/C:/Users/diego/Documents/GitHub/repoUbikuo/web/Cotizacion.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -10,11 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.ConexionBd;
-import util.Crud;
 
 /**
  *
@@ -107,7 +105,7 @@ public class cotizacionDAO extends ConexionBd {
         } finally {
             //independimiente que no haga
             try {
-                this.cerrarConexion();
+                //this.cerrarConexion();
             } catch (Exception e) {
                 Logger.getLogger(cotizacionDAO.class.getName()).log(Level.SEVERE, null, e);
             }

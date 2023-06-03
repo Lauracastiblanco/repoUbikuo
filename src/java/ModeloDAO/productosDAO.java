@@ -200,36 +200,8 @@ public class productosDAO extends ConexionBd implements Crud {
 
     }
 
-    public ArrayList<productosVO> listarCategoria(String idCategoria) {
-
-        ArrayList<productosVO> listarCategoria = new ArrayList<>();
-
-        try {
-            conexion = this.obtenerConexion();
-            sql = "SELECT * FROM tblproductos WHERE prod_id_categoria = ?";
-            puente = conexion.prepareStatement(sql);
-            puente.setString(1, idCategoria);
-            mensajero = puente.executeQuery();
-
-            while (mensajero.next()) {
-
-                productosVO prodVO = new productosVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4),
-                        mensajero.getString(5), mensajero.getString(6), mensajero.getString(7), mensajero.getString(8));
-
-                listarCategoria.add(prodVO);
-
-            }
-        } catch (Exception e) {
-            Logger.getLogger(productosDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            try {
-                this.cerrarConexion();
-            } catch (Exception e) {
-                Logger.getLogger(productosDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        return listarCategoria;
-    }
+    
+    
 
     @Override
     public boolean eliminarRegisro() {
