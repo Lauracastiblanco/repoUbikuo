@@ -10,9 +10,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.ConexionBd;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -113,4 +116,44 @@ public class cotizacionDAO extends ConexionBd {
         return r;
 
     }
+    
+   public ArrayList<cotizacionVO> consultarDatos() {
+    ArrayList<cotizacionVO> resultado = new ArrayList<>();
+
+    try {
+        conexion = this.obtenerConexion();
+        smt2 = conexion.prepareStatement(sql);
+
+        // Ejecutar la consulta utilizando la vista
+       sql = "SELECT cotizacion, cliente, usunombre, cotfecha, Totalcot, cotestado FROM consultarcotizaciones";
+       mensajero = puente.executeQuery();
+
+        // Recorrer los resultados y crear objetos personalizados
+        while (mensajero.next()) {
+            int columna1 = mensajero.getInt("cotizacion");
+        String columna2 = mensajero.getString("cliente");
+        String columna3 = mensajero.getString("usunombre");
+        Timestamp columna4 = mensajero.getTimestamp("cotfecha");
+        double columna5 = mensajero.getDouble("Totalcot");
+        String columna6 = mensajero.getString("cotestado");
+
+   
+            
+
+            // Crear un objeto personalizado y agregarlo al ArrayList
+            cotizacionVO ctVO = new cotizacionVO(columna1, columna2, columna3, columna4, columna5, columna6);
+            resultado.add(ctVO);
+        }
+
+      
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return resultado;
 }
+
+
+}
+
+

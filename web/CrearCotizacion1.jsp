@@ -39,6 +39,7 @@
         <link href="CSS/stylepopup.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/principal.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/pedido.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </head>
     <c:set var="lista" value="${lista}" scope="session" />
@@ -71,7 +72,7 @@
     <body >
 
         <section class="main">
-            <form  id="cotizacion-form" method="post" action="cotizacion">
+            <form  id="cotizacion-form" method="post" action="cotizacion" autocomplete="off">
                 <div class="dash-content">
                     <div class="overview">
                         <div class="title">
@@ -147,7 +148,7 @@
                             <h2>Lista de Productos</h2>
                             <table class="tabla1" id="tablaProductos">
                                 <thead>
-                                    <tr>
+                                    <tr  id="fila-${list.item}">
                                         <th>Item</th>
                                         <th>Idproducto</th>
                                         <th>Producto</th>
@@ -160,7 +161,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <c:forEach var="list" items="${lista}">
+                                    <c:forEach var="list" items="${lista}" varStatus="status">
                                         <tr>
                                             <td>${list.getItem()}</td>
                                             <td>${list.getDc_id_producto()}</td>
@@ -169,7 +170,13 @@
                                             <td>${list.getPrecio()}</td>
                                             <td>${list.getSubtotal()}</td>
                                             <td class="d-flex">
-                                                <a class="btn btn-danger" style="margin-left: 10px">Borrar</a>
+                                                <a class="btn btn-danger" style="margin-left: 10px" onclick="borrarProducto(${list.item})">Borrar</a>
+
+
+
+
+
+
                                             </td>
                                             <td></td>
                                         </tr>
@@ -178,12 +185,14 @@
                             </table>
                             <div class="card-footer d-flex parte04">
                                 <div class="col-sm-3 ml-auto">
-                                    <input type="text" name="Total" class="form-control" value="${Total}" placeholder="Total" readonly>
+                                   
+                                    <p>Total: <span id="total">${Total}</span></p>
+
                                 </div>
 
                                 <div class="col-sm-6">
                                     <button type="submit" name="accion" value="generarcotizacion" class="btn btn-secondary">generar cotizacion</button>
-                                    <input type="submit"  value="Cancelar" onclick="cancelarRegistro()" class="btn btn-danger" style="margin-left: 10px">
+                                    <input type="button" value="Cancelar" onclick="cancelarRegistro()" class="btn btn-danger" style="margin-left: 10px">
                                 </div>
 
                             </div>
@@ -208,11 +217,7 @@
                                         <input type="text" placeholder="Stock" value="${pr. getProdstock_disp()}" name="stock" readonly>
                                         <label>Cantidad</label>
                                         <input type="text" placeholder="Cantidad" name="cantidad">
-                                        <% if (request.getAttribute("mensajeError") != null) {%>
-                                        <div class="alert alert-danger" role="alert">
-                                            <%= request.getAttribute("mensajeError")%>
-                                        </div>
-                                        <% }%>
+
                                         <label>Foto</label>
                                         <img class="foto-prod" src="ASSETS/Breaker.png" alt=""/>
                                         <button class="btn agregar" id="agregar-btn" >Agregar al pedido</button>
@@ -227,24 +232,47 @@
                 </div>
             </form>
         </section>
+
         <script src="JS/agregaProducto.js" type="text/javascript"></script>
         <script src="JS/cotizacion.js" type="text/javascript"></script>
         <script src="JS/buscador.js" type="text/javascript"></script>
         <script src="JS/popup.js" type="text/javascript"></script>
         <script>
                                         function cancelarRegistro() {
-                                            if (confirm("¿Está seguro que desea cancelar el registro?")) {
-                                                document.getElementById("cotizacion-form").reset(); // Restablecer los valores del formulario
+                                            if (confirm("¿Estás seguro que deseas cancelar el registro?")) {
+                                                document.getElementById("cotizacion-form").setAttribute("onsubmit", "return false;");
+
+                                                var tablaProductos = document.getElementById("tablaProductos");
+                                                if (tablaProductos) {
+                                                    var tbody = tablaProductos.getElementsByTagName("tbody")[0];
+                                                    while (tbody.firstChild) {
+                                                        tbody.removeChild(tbody.firstChild); // Eliminar todas las filas de la tabla
+                                                    }
+                                                }
+
+                                                // Llamar al controlador para cancelar el registro
+                                                window.location.href = "cotizacion?accion=cancelar";
                                             }
                                         }
+
+
+
         </script>
+
+
+
+
+
+
+
+
         <style>
             .form-field {
                 width: 100px;
-
                 /* Ajusta el tamaño según tus necesidades */
             }
         </style>
+
 
     </body>
 </html>
