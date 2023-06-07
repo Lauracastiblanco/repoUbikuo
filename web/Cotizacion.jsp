@@ -4,9 +4,10 @@
     Author     : diego
 --%>
 
+<%@page import="ModeloDAO.cotizacionDAO"%>
+<%@page import="ModeloVO.cotizacionVO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="ModeloDAO.ProveedorDAO"%>
-<%@page import="ModeloVO.ProveedorVO"%>
+
 <%@include file="menuVendedor.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -127,7 +128,7 @@
                 <div id="customers" class="table-data">
                     <div  class="order">
                         <div class="head">
-                            <h3>Consultar Proveedor</h3>
+                            <h3>Consultar cotizacion</h3>
                             <div class="buscar">
                                 <input type="text" id="buscador" name="id_prov"class="buscar__input" placeholder="Buscar">
                             </div>
@@ -139,95 +140,39 @@
                             <i class='bx bx-search'></i>
                             <i class='bx bx-filter'></i>
                         </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>NIT</th>
-                                    <th>Nombre</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>
-                                    <th>Descripcion</th>
-                                    <th>Correo</th>
-                                    <th>Representante</th>
-                                    <th>Estado</th>
-                                    <th>Actualizar</th>
-                                </tr>
-                            </thead>
-                            <%
-                                ProveedorVO provVO = new ProveedorVO();
-                                ProveedorDAO provDAO = new ProveedorDAO(provVO);
-                                ArrayList<ProveedorVO> listar = provDAO.listar();
+           <table>
+    <thead>
+        <tr>
+            <th>N° Cotización</th>
+            <th>Cliente</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Actualizar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+        cotizacionDAO dao = new cotizacionDAO(); // Crear una instancia del DAO
+        ArrayList<cotizacionVO> listaCotizaciones = dao.consultarDatos(); // Obtener la lista de cotizaciones
+        
+        for (cotizacionVO cotizacion : listaCotizaciones) {
+        %>
+        <tr>
+            <td><%= cotizacion.getId()%></td>
+            <td><%= cotizacion.getCliente() %></td>
+            <td><%= cotizacion.getUsuario() %></td>
+            <td><%= cotizacion.getFecha() %></td>
+            <td><%= cotizacion.getTotal() %></td>
+            <td><%= cotizacion.getEstado() %></td>
+            <td><input type="button" value="Actualizar"></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
 
-                                for (int i = 0; i < listar.size(); i++) {
-                                    provVO = listar.get(i);
-                            %>
-                            <tbody>
-                                <tr class="daticos">
-                                    <td class="id_usuario"><%=provVO.getId_prov()%></td>
-                                    <td><%=provVO.getPronombre()%></td>
-                                    <td><%=provVO.getProdireccion()%></td>
-                                    <td><%=provVO.getProtelefono()%></td>
-                                    <td><%=provVO.getProdescripcion()%></td>
-                                    <td><%=provVO.getProcorreo()%></td>
-                                    <td> <%=provVO.getProrepresentante()%></td>
-                                    <td class="estado-usuario"><span class="status <%=provVO.getProestado().equals("activo") ? "completed" : "inactive"%>"><%=provVO.getProestado()%></span></td>
-                                    <td><button class="open-popup actualizar-usuario" data-popup="popup2" data-prov-id="<%=provVO.getId_prov()%>" data-prov-nombre="<%=provVO.getPronombre()%>" data-prov-direccion="<%=provVO.getProdireccion()%>"data-prov-telefono="<%=provVO.getProtelefono()%>" data-prov-descripcion="<%=provVO.getProdescripcion()%>" data-prov-email="<%=provVO.getProcorreo()%>" data-usu-password="<%=provVO.getProrepresentante()%>" data-usu-estado="<%=provVO.getProestado()%>">
-                                            <i class='bx bx-edit actualizar'></i></button>
-                                            <%}%>
-                                        <div class="popup actualizar-popup" id="popup2">
-                                            <div class="overlay"></div>
-                                            <div class="popup-content">
-                                                <h2>Actualizar Proveedor</h2>
-                                                <form method = "post" action="Proveedor">
-                                                    <div class="module-details">
-                                                        <div class="input-box">
-                                                            <span class="details">Nombre(s)* </span>
-                                                            <input type="text" name ="usunombre" placeholder="Nombre(s)" id="usunombre">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Apellidos* </span>
-                                                            <input type="text" name ="usuapellido" placeholder="Apellidos" id="usuapellido">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Documento* </span>
-                                                            <input type="number" name="id_usuario" placeholder="Documento" id="id_usuario">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Dirección* </span>
-                                                            <input type="text" name ="usudireccion" placeholder="Dirección" id="usudireccion">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Telefono * </span>
-                                                            <input type="number" name ="usutelefono" placeholder="Celular" id="usutelefono">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Correo Electronico* </span>
-                                                            <input type="email" name ="usuemail" placeholder="Correo Electronico" id="usuemail">
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <span class="details">Contraseña* </span>
-                                                            <input type="text"  name="usupassword" placeholder="Contraseña" id="usupassword">
-                                                        </div>
-                                                        <div class="input-box">
-                                                             <span class="details">Estado* </span>
-                                                            <select name="usuestado" id="usuestado">
-                                                                <option value="activo">Activo</option>
-                                                                <option value="inactivo">Inactivo</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="controls">
-                                                        <a href="#" class="cancelarbtn">Cancelar</a>
-                                                        <button class="registrarbtn">Actualizar Usuario</button>
-                                                        <input  type="hidden" name="opcion" value="2">
-                                                    </div>   
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
                     </div>
                 </div>
             </div>

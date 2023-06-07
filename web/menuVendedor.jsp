@@ -49,7 +49,7 @@
                     <i class="material-symbols-sharp">badge</i>
                     <span class="link-name">Proveedores</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="Cotizacion.jsp">
                     <i class="material-symbols-sharp">inactive_order</i>
                     <span class="link-name">Cotizacion</span>
                 </a></li>

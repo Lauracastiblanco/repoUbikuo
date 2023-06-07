@@ -51,6 +51,7 @@ public class DetallesPedidoProveedorControlador extends HttpServlet {
                     detProvVO.setDescripcionProducto(nombreProducto);
                     detProvVO.setDpro_preciocompra(precioUnitario);
                     detProvVO.setDpro_cantidad(cantidad);
+                    
                     detProvVO.setDpro_subtotal(subtotal);
                     listaProductos.add(detProvVO);
                     request.setAttribute("listaProductos", listaProductos);
