@@ -36,9 +36,9 @@ public class PedidoControlador extends HttpServlet {
     pedidoVO pdVO = new pedidoVO();
     pedidoDAO pdDAO = new pedidoDAO();
     usuarioVO usuVO = new usuarioVO();
-    List<pedidoVO> listaprod = new ArrayList<>();
+    List<pedidoVO> lista = new ArrayList<>();
     int idProducto, idpedido;
-    String nombreProducto;
+    String descripcion;
     int cantidad, item, cod;
     double precio, subtotal, total;
     String numeroserie;
@@ -52,7 +52,7 @@ public class PedidoControlador extends HttpServlet {
 
         switch (accion) {
             case "buscarcliente":
-                String documento = request.getParameter("cot_id_cliente");
+                String documento = request.getParameter("id_cliente");
                 cvo.setId_cliente(documento);
                 cvo = cdao.buscar(documento);
                 request.setAttribute("c", cvo);
@@ -60,71 +60,72 @@ public class PedidoControlador extends HttpServlet {
                 break;
 
             case "buscarproducto":
-                String id = request.getParameter("dc_id_prod");
+                String id = request.getParameter("id_prod");
                 prVO = prDAO.listarid(id);
+                request.setAttribute("producto", prVO);
+                
+                request.setAttribute("lista", lista);
+                
                 request.setAttribute("c", cvo);
-                request.setAttribute("lista", listaprod);
-
-                request.setAttribute("pr", prVO);
-
                 break;
             case "agregarproducto":
+                item = item + 1;
+                
+                cod = Integer.parseInt(prVO.getId_prod());
 
-                pdVO = new pedidoVO();
-                item++;
-
-                producto = request.getParameter("nomproducto");
+                descripcion = request.getParameter("nombreproducto");
                 cantidad = Integer.parseInt(request.getParameter("cantidad"));
                 precio = Double.parseDouble(request.getParameter("precio"));
-
                 subtotal = (int) (cantidad * precio);
+
+                pdVO = new pedidoVO();
+                
                 pdVO.setItem(item);
-                cod = Integer.parseInt(prVO.getId_prod());
                 pdVO.setDp_id_producto(cod);
-                pdVO.setNombreprod(producto);
+                pdVO.setNombreprod(descripcion);
                 pdVO.setDp_cantidad(cantidad);
                 pdVO.setPrecio(precio);
                 pdVO.setSubtotal(subtotal);
                 pdVO.setTotal(total);
-
-                listaprod.add(pdVO);
-                for (int i = 0; i < listaprod.size(); i++) {
-                    total = total + listaprod.get(i).getSubtotal();
+                
+                lista.add(pdVO);
+                request.setAttribute("lista", lista);
+               
+                for (int i = 0; i < lista.size(); i++) {
+                    total = total + lista.get(i).getSubtotal();
                 }
                 request.setAttribute("Total", total);
-
+                
                 request.setAttribute("c", cvo);
-                request.setAttribute("pr", prVO);
-                request.setAttribute("lista", listaprod);
+                
                 break;
 
             case "generarpedido":
-                //Pedido
-
+                //Guardar pedido
                 pdVO.setPed_id_cliente(Integer.parseInt(cvo.getId_cliente()));
                 pdVO.setPed_id_usuario(1);
                 pdVO.setTotal(total);
                 pdVO.setPedestado("pendiente");
                 pdDAO.guardarPedido(pdVO);
 
-                //Detalles de Pedido
+                //Guardar detalles de pedido
                 idpedido = pdDAO.idPedido();
-                if (listaprod.size() > 0) {
-                    for (int i = 0; i < listaprod.size(); i++) {
+                if (lista.size() > 0) {
+                    for (int i = 0; i < lista.size(); i++) {
                         pdVO = new pedidoVO();
                         pdVO.setId_ped(idpedido);
-                        pdVO.setDp_id_producto(listaprod.get(i).getDp_id_producto());
-                        pdVO.setDp_cantidad(listaprod.get(i).getDp_cantidad());
-                        pdVO.setPrecio(listaprod.get(i).getPrecio());
+                        pdVO.setDp_id_producto(lista.get(i).getDp_id_producto());
+                        pdVO.setDp_cantidad(lista.get(i).getDp_cantidad());
+                        pdVO.setPrecio(lista.get(i).getPrecio());
 
-                        pdDAO.GuardarDetallePedido(pdVO);
+                        pdDAO.guardarDetallePedido(pdVO);
 
                     }
                 }
                 break;
             default:
                 pdVO = new pedidoVO();
-                listaprod = new ArrayList<>();
+                lista = new ArrayList<>();
 
                 total = 0.0;
 

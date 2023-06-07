@@ -4,6 +4,8 @@
     Author     : WIN
 --%>
 
+<%@page import="ModeloVO.pedidoVO"%>
+<%@page import="ModeloDAO.pedidoDAO"%>
 <%@page import="ModeloVO.productosVO"%>
 <%@page import="ModeloVO.CategoriaVO"%>
 <%@page import="java.util.List"%>
@@ -17,7 +19,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuarios</title>
+        <title>Pedido</title>
         <!--------------------- Iconos ------------------------------->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!--------------------- Select ------------------------------->
@@ -33,7 +35,7 @@
     <body>
 
         <section class="main">
-            <form method="post" action="cotizacion">
+            <form method="post" action="Pedido">
                 <div class="dash-content">
                     <div class="overview">
                         <div class="title">
@@ -71,7 +73,7 @@
 
 
                                         <div style="display: flex; align-items: center;">
-                                            <input type="text" name="cot_id_cliente" value="${c.getId_cliente()}" autofocus> 
+                                            <input type="text" name="id_cliente" value="${c.getId_cliente()}" autofocus> 
                                             <button type="submit" name="accion" value="buscarcliente" class="btn btn-success" >Buscar</button>
                                         </div>
 
@@ -101,101 +103,79 @@
 
 
                                 </div>
+
+                                <div class="columna2">
+                                    <h3 class="titulo-prod">Productos</h3>
+                                    <div class="caja2">
+
+                                        <div class="productos">
+                                            <div class="datosproductos">
+                                                <label>Producto</label>
+                                                <input type="text" name="id_prod" class="select2" placeholder="Codigo Producto" value="${producto.getId_prod()}">
+                                                <button type="submit" name="accion" value="buscarproducto" class="btn btn-success">Buscar</button>
+                                                <label>Descripción</label>
+                                                <input type="text" placeholder="Descripcion" id="prod_descripcion" name="nombreproducto" value="${producto.getProdnombre()}">
+                                                <label>Precio</label>
+                                                <input type="text" placeholder="Precio" id="prodprecio" name="precio" value="${producto.getProdprecio()}">
+                                                <label>Stock</label>
+                                                <input type="text" placeholder="Stock" id="prodstock_disp" name="prodstock_disp" value="${producto.getProdstock_disp()}">
+                                                <label>Cantidad</label>
+                                                <input type="text" placeholder="Cantidad" name="cantidad" value="1">
+                                                <button type="submit" name="accion" value="agregarproducto" class="btn btn-success">Agregar Producto</button>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
                             </div>
                             <h2>Lista de Productos</h2>
-                            <table class="tabla1" id="tablaProductos">
+                            <table class="tabla1">
                                 <thead>
                                     <tr>
-                                       <th>Item</th>
-                                                <th>Idproducto</th>
-                                                <th>Producto</th>
-                                                <th>Cantidad</th>
-                                                <th>Precio unitario</th>
-                                                <th>Subtotal</th>
-                                                <th class="action">Acciones</th>
+                                        <th>Item</th>
+                                        <th>Idproducto</th>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio unitario</th>
+                                        <th>Subtotal</th>
+                                        <th>Acciones</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="list" items="${listaprod}">
+                                <c:forEach var="list" items="${lista}">
                                     <tr>
-                                       <td>${list.getItem()}</td>
-                                                    <td>${list.getDc_id_producto()}</td>
-                                                    <td>${list.getNombreproductoL()}</td>
-                                                    <td>${list.getCantidad()}</td>
-                                                    <td>${list.getPrecio()}</td>
-                                                    <td>${list.getSubtotal()}</td>
-                                                     <td class="d-flex">
-                                                        <a class="btn btn-danger" style="margin-left: 10px">Borrar</a>
-                                                    </td>
-                                                    <td></td>
+                                        <td>${list.getItem()}</td>
+                                        <td>${list.getDp_id_producto()}</td>
+                                        <td>${list.getNombreprod()}</td>
+                                        <td>${list.getDp_cantidad()}</td>
+                                        <td>${list.getPrecio()}</td>
+                                        <td>${list.getSubtotal()}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-warning">Editar</a>
+                                            <a href="#" class="btn btn-danger">Eliminar</a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
-                          <div class="card-footer d-flex parte04">
-                                    <div class="col-sm-6">
-                                       <button type="submit" name="accion" value="generarpedido" class="btn btn-secondary">generar pedido</button>
-                                        <input type="submit" name="action" value="Cancelar" onclick="cancelarRegistro()" class="btn btn-danger" style="margin-left: 10px">
-                                    </div>
-                                    <div class="col-sm-3 ml-auto">
-                                        <input type="text" name="Total" class="form-control" value="${Total}" placeholder="Total" readonly>
-                                    </div>
+                            <div class="card-footer d-flex parte04">
+                                <div class="col-sm-6">
+                                    <button type="submit" name="accion" value="generarpedido" class="btn btn-secondary">generar pedido</button>
+                                    <input type="submit" name="action" value="Cancelar" onclick="cancelarRegistro()" class="btn btn-danger" style="margin-left: 10px">
                                 </div>
-                        </div>
-                        <div class="columna2">
-                            <h3 class="titulo-prod">Productos</h3>
-                            <div class="caja2">
-
-                                <div class="productos">
-                                    <div class="datosproductos">
-                                        <label>Producto</label>
-                                        <select name="id_prod" id="selectProducto" onchange="inputsProductos()" class="select2" id="miSelect">
-                                            <option value="">Seleccione...</option>
-                                            <%
-                                                productosDAO prodDAO = new productosDAO();
-                                                CategoriaDAO catProdDAO = new CategoriaDAO();
-                                                List<CategoriaVO> listaCategorias = catProdDAO.listarC();
-                                                for (CategoriaVO catVO : listaCategorias) {
-                                                    List<productosVO> listaProductos = prodDAO.listarCategoria(catVO.getId_cat());
-                                                    if (!listaProductos.isEmpty()) {
-                                            %>
-                                            <optgroup label="Categoria: <%=catVO.getCatnombre()%>">
-                                                <% for (productosVO prodVO : listaProductos) {%>
-                                                <option class="producto-option" value="<%=prodVO.getId_prod()%>" data-descripcion="<%=prodVO.getProdnombre()%>" data-precio="<%=prodVO.getProdprecio()%>" data-stock="<%=prodVO.getProdstock_disp()%>"><%=prodVO.getProdnombre()%> - REF: <%=prodVO.getId_prod()%></option>
-                                                <% } %>
-                                            </optgroup>
-                                            <% }
-                                                }%>
-                                        </select>
-                                        <label>Descripción</label>
-                                        <input type="text" placeholder="Descripcion" id="prod_descripcion" name="nomproducto" >
-                                        <label>Precio</label>
-                                        <input type="text" placeholder="Precio" id="prodprecio" name="precio">
-                                        <label>Stock</label>
-                                        <input type="text" placeholder="Stock" id="prodstock_disp" name="prodstock_disp">
-                                        <label>Cantidad</label>
-                                        <input type="text" placeholder="Cantidad" name="cantidad">
-                                        <label>Foto</label>
-                                        <img class="foto-prod" src="ASSETS/Breaker.png" alt=""/>
-                                         <button type="submit" name="accion" value="agregarproducto" class="btn btn-success">Agregar</button>
-                                       
-                                    </div>
+                                <div class="col-sm-3 ml-auto">
+                                    <input type="text" name="txtTotal" class="form-control" value="${total}" placeholder="Total" readonly>
                                 </div>
-                                        
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </form>
         </section>
-        <script src="JS/agregaProducto.js" type="text/javascript"></script>
-        <script src="JS/pedidoproveedor.js" type="text/javascript"></script>
-        <script src="JS/buscador.js" type="text/javascript"></script>
-        <script src="JS/popup.js" type="text/javascript"></script>
-        <script>
-
-        </script>
     </body>
 </html>

@@ -41,7 +41,7 @@
                     <i class="material-symbols-sharp">face</i>
                     <span class="link-name">Clientes</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="CrearPedido.jsp">
                     <i class="material-symbols-sharp">order_approve</i>
                     <span class="link-name">Pedido</span>
                 </a></li>
