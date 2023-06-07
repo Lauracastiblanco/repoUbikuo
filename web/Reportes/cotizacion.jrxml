@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="840eabc7-0552-448b-8d10-e0731b79c149">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tblcotizaciones.`id_cot` AS tblcotizaciones_id_cot,
+     tblcotizaciones.`cot_id_cliente` AS tblcotizaciones_cot_id_cliente,
+     tblcotizaciones.`cot_id_usuario` AS tblcotizaciones_cot_id_usuario,
+     tblcotizaciones.`cotfecha` AS tblcotizaciones_cotfecha
+FROM
+     `tblcotizaciones` tblcotizaciones]]>
+	</queryString>
+	<field name="tblcotizaciones_id_cot" class="java.lang.Integer"/>
+	<field name="tblcotizaciones_cot_id_cliente" class="java.lang.Integer"/>
+	<field name="tblcotizaciones_cot_id_usuario" class="java.lang.Integer"/>
+	<field name="tblcotizaciones_cotfecha" class="java.sql.Timestamp"/>
+	<group name="tblcotizaciones_id_cot">
+		<groupExpression><![CDATA[$F{tblcotizaciones_id_cot}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
