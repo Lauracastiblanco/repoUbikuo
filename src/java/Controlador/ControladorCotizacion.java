@@ -98,6 +98,7 @@ public class ControladorCotizacion extends HttpServlet {
                     request.setAttribute("c", cvo);
                     request.setAttribute("pr", prVO);
                     request.setAttribute("lista", listaprod);
+
                 } catch (NumberFormatException e) {
                     // Manejar el error de conversión de cadena a número
                     e.printStackTrace();
@@ -135,16 +136,16 @@ public class ControladorCotizacion extends HttpServlet {
                     request.setAttribute("RegistroExitoso", "Cotización generada con éxito");
                 }
                 break;
-                case "cancelar":
-    listaprod.clear(); // Limpiar la lista de productos
-    item = 0; // Restablecer el contador de ítems
-    total = 0.0; // Restablecer el total
-    request.getSession().removeAttribute("lista"); // Eliminar la lista de productos de la sesión
-    request.getSession().removeAttribute("item"); // Eliminar el contador de ítems de la sesión
-    request.getSession().removeAttribute("Total"); // Eliminar el total de la sesión
-   
-    break;
-    case "eliminarproducto":
+            case "cancelar":
+                listaprod.clear(); // Limpiar la lista de productos
+                item = 0; // Restablecer el contador de ítems
+                total = 0.0; // Restablecer el total
+                request.getSession().removeAttribute("lista"); // Eliminar la lista de productos de la sesión
+                request.getSession().removeAttribute("item"); // Eliminar el contador de ítems de la sesión
+                request.getSession().removeAttribute("Total"); // Eliminar el total de la sesión
+
+                break;
+            case "eliminarproducto":
     item = Integer.parseInt(request.getParameter("item"));
 
     // Buscar el producto en la lista y eliminarlo
@@ -155,9 +156,14 @@ public class ControladorCotizacion extends HttpServlet {
             break;
         }
     }
-    
+
     if (productoEliminado != null) {
         listaprod.remove(productoEliminado);
+
+        // Actualizar los ítems
+        for (int i = 0; i < listaprod.size(); i++) {
+            listaprod.get(i).setItem(i + 1);
+        }
 
         // Calcular el nuevo total
         total = calcularTotal(listaprod);
@@ -167,20 +173,17 @@ public class ControladorCotizacion extends HttpServlet {
         request.setAttribute("pr", prVO);
         request.setAttribute("lista", listaprod);
 
-        // No redireccionar, enviar solo la respuesta
-        response.getWriter().write("Producto eliminado exitosamente");
+        String tablaHTML = generarTablaHTML(listaprod);
+
+        // Enviar la respuesta al cliente
+        response.setContentType("text/html");
+        response.getWriter().write(tablaHTML);
     } else {
         // No se encontró el producto en la lista
         response.getWriter().write("No se pudo encontrar el producto a eliminar");
     }
-    
+
     break;
-
-
-
-
-
-        
 
             default:
                 ctVO = new cotizacionVO();
@@ -203,6 +206,44 @@ public class ControladorCotizacion extends HttpServlet {
         request.getRequestDispatcher("CrearCotizacion1.jsp").forward(request, response);
 
     }
+
+    private String generarTablaHTML(List<cotizacionVO> listaProductos) {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("<table class=\"tabla1\" id=\"tablaProductos\">");
+    sb.append("<thead>");
+    sb.append("<tr>");
+    sb.append("<th>Item</th>");
+    sb.append("<th>Idproducto</th>");
+    sb.append("<th>Producto</th>");
+    sb.append("<th>Cantidad</th>");
+    sb.append("<th>Precio unitario</th>");
+    sb.append("<th>Subtotal</th>");
+    sb.append("<th class=\"action\">Acciones</th>");
+    sb.append("</tr>");
+    sb.append("</thead>");
+    sb.append("<tbody>");
+
+    for (cotizacionVO producto : listaProductos) {
+        sb.append("<tr>");
+        sb.append("<td>").append(producto.getItem()).append("</td>");
+        sb.append("<td>").append(producto.getDc_id_producto()).append("</td>");
+        sb.append("<td>").append(producto.getNombreproductoL()).append("</td>");
+        sb.append("<td>").append(producto.getCantidad()).append("</td>");
+        sb.append("<td>").append(producto.getPrecio()).append("</td>");
+        sb.append("<td>").append(producto.getSubtotal()).append("</td>");
+        sb.append("<td class=\"d-flex\">");
+        sb.append("<a class=\"btn btn-danger\" style=\"margin-left: 10px\" onclick=\"borrarProducto(").append(producto.getItem()).append(")\">Borrar</a>");
+        sb.append("</td>");
+        sb.append("</tr>");
+    }
+
+    sb.append("</tbody>");
+    sb.append("</table>");
+
+    return sb.toString();
+}
+
 
     private double calcularTotal(List<cotizacionVO> listaProductos) {
         double total = 0.0;

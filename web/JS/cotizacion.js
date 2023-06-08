@@ -31,6 +31,8 @@ function inputsProductos() {
     var stock = prodSeleccionado.getAttribute("data-stock");
     document.getElementById("prodstock_disp").value = stock;
 }
+
+
  
 
 

@@ -148,7 +148,7 @@
                             <h2>Lista de Productos</h2>
                             <table class="tabla1" id="tablaProductos">
                                 <thead>
-                                    <tr  id="fila-${list.item}">
+                                    <tr id="fila-${list.item}">
                                         <th>Item</th>
                                         <th>Idproducto</th>
                                         <th>Producto</th>
@@ -156,11 +156,9 @@
                                         <th>Precio unitario</th>
                                         <th>Subtotal</th>
                                         <th class="action">Acciones</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <c:forEach var="list" items="${lista}" varStatus="status">
                                         <tr>
                                             <td>${list.getItem()}</td>
@@ -171,12 +169,6 @@
                                             <td>${list.getSubtotal()}</td>
                                             <td class="d-flex">
                                                 <a class="btn btn-danger" style="margin-left: 10px" onclick="borrarProducto(${list.item})">Borrar</a>
-
-
-
-
-
-
                                             </td>
                                             <td></td>
                                         </tr>
@@ -185,7 +177,7 @@
                             </table>
                             <div class="card-footer d-flex parte04">
                                 <div class="col-sm-3 ml-auto">
-                                   
+
                                     <p>Total: <span id="total">${Total}</span></p>
 
                                 </div>
@@ -237,6 +229,8 @@
         <script src="JS/cotizacion.js" type="text/javascript"></script>
         <script src="JS/buscador.js" type="text/javascript"></script>
         <script src="JS/popup.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script>
                                         function cancelarRegistro() {
                                             if (confirm("¿Estás seguro que deseas cancelar el registro?")) {
@@ -258,21 +252,102 @@
 
 
         </script>
+        <script>
+// Función para agregar un producto a la tabla de la cotización
+            function agregarProducto() {
+                // Obtener los valores de los campos de producto
+                var idProducto = $("input[name='dc_id_prod']").val();
+                var producto = $("input[name='nomproducto']").val();
+                var precio = parseFloat($("input[name='precio']").val());
+                var stock = parseInt($("input[name='stock']").val());
+                var cantidad = parseInt($("input[name='cantidad']").val());
 
+                // Validar la cantidad ingresada
+                if (isNaN(cantidad) || cantidad <= 0) {
+                    alert("Ingrese una cantidad válida.");
+                    return;
+                }
 
+                // Validar el stock disponible
+                if (cantidad > stock) {
+                    alert("La cantidad ingresada supera el stock disponible.");
+                    return;
+                }
 
+                // Calcular el subtotal
+                var subtotal = precio * cantidad;
 
+                // Crear la nueva fila de la tabla
+                var newRow =
+                        "<tr>" +
+                        "<td></td>" +
+                        "<td>" + idProducto + "</td>" +
+                        "<td>" + producto + "</td>" +
+                        "<td>" + cantidad + "</td>" +
+                        "<td>" + precio + "</td>" +
+                        "<td>" + subtotal + "</td>" +
+                        "<td class='d-flex'>" +
+                        "<a class='btn btn-danger' style='margin-left: 10px' onclick='borrarProducto(this)'>Borrar</a>" +
+                        "</td>" +
+                        "</tr>";
 
+                // Agregar la nueva fila a la tabla
+                $("#tablaProductos tbody").append(newRow);
 
+                // Actualizar los índices de los ítems
+                actualizarIndices();
 
-
-        <style>
-            .form-field {
-                width: 100px;
-                /* Ajusta el tamaño según tus necesidades */
+                // Calcular el nuevo total
+                calcularTotal();
             }
-        </style>
 
+// Función para borrar un producto de la tabla de la cotización
+            function borrarProducto(button) {
+                // Obtener la fila padre del botón de borrar
+                var row = $(button).closest("tr");
+
+                // Eliminar la fila de la tabla
+                row.remove();
+
+                // Actualizar los índices de los ítems
+                actualizarIndices();
+
+                // Calcular el nuevo total
+                calcularTotal();
+            }
+
+// Función para actualizar los índices de los ítems en la tabla
+            function actualizarIndices() {
+                $("#tablaProductos tbody tr").each(function (index) {
+                    $(this).find("td:first").text(index + 1);
+                });
+            }
+
+// Función para calcular el total de la cotización
+            function calcularTotal() {
+                var total = 0.0;
+
+                $("#tablaProductos tbody tr").each(function () {
+                    var subtotal = parseFloat($(this).find("td:nth-child(6)").text());
+                    total += subtotal;
+                });
+
+                $("#total").text(total);
+            }
+
+// Evento para agregar un producto al hacer clic en el botón
+            $("#agregar-btn").click(function () {
+                agregarProducto();
+            });
+
+// Evento para borrar un producto al hacer clic en el botón de borrar
+            $(document).on("click", ".btn-danger", function () {
+                borrarProducto(this);
+            });
+
+
+
+        </script>
 
     </body>
 </html>
